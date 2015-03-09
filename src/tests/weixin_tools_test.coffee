@@ -26,42 +26,42 @@ describe "test weixin_util", ->
   before () ->
     # before test happen
 
-    #  describe "token", ->
-    #    it "should get access_token", (done) ->
-    #      wxt.loadAccessToken (err, data) ->
-    #        console.dir err if err?
-    #        token = data
-    #        console.dir token
-    #        done()
-    #
-    #    it "should get jsapi_ticket", (done) ->
-    #      return done() unless token?
-    #      wxt.loadJsapiTicket token.access_token, (err, data) ->
-    #        console.log err if err?
-    #        console.dir data
-    #        done()
-    #
-    #  describe "menus", ->
-    #    it "should load menus", (done) ->
-    #      return done() unless token?
-    #      wxt.loadMenus token.access_token, (err, data) ->
-    #        console.log err if err?
-    #        console.log JSON.stringify(data)
-    #        done()
-    #
-    #    it "should delete menus", (done) ->
-    #      return done() unless token?
-    #      wxt.deleteMenus token.access_token, (err, data) ->
-    #        console.log err if err?
-    #        console.dir data
-    #        done()
-    #
-    #    it "should create menus", (done) ->
-    #      return done() unless token?
-    #      wxt.createMenus token.access_token, menus, (err, data) ->
-    #        console.log err if err?
-    #        console.dir data
-    #        done()
+  describe "token", ->
+    it "should get access_token", (done) ->
+      wxt.loadAccessToken (err, data) ->
+        console.dir err if err?
+        token = data
+        console.dir token
+        done()
+
+    it "should get jsapi_ticket", (done) ->
+      return done() unless token?
+      wxt.loadJsapiTicket token.access_token, (err, data) ->
+        console.log err if err?
+        console.dir data
+        done()
+
+  describe "menus", ->
+    it "should load menus", (done) ->
+      return done() unless token?
+      wxt.loadMenus token.access_token, (err, data) ->
+        console.log err if err?
+        console.log JSON.stringify(data)
+        done()
+
+    it "should delete menus", (done) ->
+      return done() unless token?
+      wxt.deleteMenus token.access_token, (err, data) ->
+        console.log err if err?
+        console.dir data
+        done()
+
+    it "should create menus", (done) ->
+      return done() unless token?
+      wxt.createMenus token.access_token, menus, (err, data) ->
+        console.log err if err?
+        console.dir data
+        done()
 
   describe "signature", ->
     it "makeSignature", (done) ->

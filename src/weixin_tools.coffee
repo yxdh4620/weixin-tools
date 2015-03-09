@@ -25,7 +25,7 @@ class WeixinTools
   # { access_token: 'f5MOW9CXcxrJxEPNoLI431iG-SEvBlwCWbGMfrATF8-6_gMC6_6-Ipqmy2OnYS1M20MB5XZXAE7vAHCbyU1tFqvcJ6pWrYaSbndsraO5ZmA',
   #   expires_in: 7200 }
   loadAccessToken:(callback)->
-    token.loadAccessToken @appId, @secret, callback
+    token.loadAccessToken @appid, @secret, callback
 
   #获取jsapi_ticket, 有访问次数限制， 获得后需要本地缓存
   # param: access_token

@@ -59,6 +59,7 @@ refreshAuthorzeToken = (appid, refresh_token, callback) ->
 
 loadUserInfo = (openid, authorze_token, lang='zh_CN', callback) ->
   url = "#{RequestUrls.GET_USER_INFO_URL}?access_token=#{authorze_token}&openid=#{openid}&lang=#{lang}"
+  console.log "loadUserInfo:: url:: #{url}"
   options =
     url: url
     method: "GET"

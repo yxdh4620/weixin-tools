@@ -1,1 +1,2 @@
-module.exports = require('./lib/weixin_tools');
+WeixinTools = require('./lib/weixin_tools');
+module.exports = WeixinTools
