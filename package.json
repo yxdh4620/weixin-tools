@@ -1,0 +1,43 @@
+{
+  "name": "weixin-tools",
+  "description": "weixin-tools APP",
+  "version": "0.1.0",
+  "homepage": "https://github.com/yxdh4620/weixin-tools",
+  "author": {
+    "name": "yxdh4620",
+    "email": "yxdh4620@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yxdh4620/weixin-tools.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yxdh4620/weixin-tools/issues"
+  },
+  "licenses": [
+    {
+      "type": "NA",
+      "url": "https://github.com/yxdh4620/weixin-tools/blob/master/LICENSE-NA"
+    }
+  ],
+  "main": "./lib/weixin-tools.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "coffee": "coffee -o ./lib/ -cw ./src/",
+    "watch-client": "coffee -b -o ./public/js/site -cw public_src/js",
+    "distill": "distill -i ./src/server.coffee -o ./dist/weixin.js",
+    "start": "DEBUG=weixin-tools* ./node_modules/.bin/nodemon lib/server.js",
+    "test" : "mocha  --compilers coffee:coffee-script/register tests/"
+  },
+  "devDependencies": {
+    "coffee-script": "1.8.0",
+    "commander": "latest",
+    "underscore": "latest",
+    "request": "2.27.0",
+    "querystring": "0.2.0",
+    "debug": "latest"
+  },
+  "keywords": []
+}
