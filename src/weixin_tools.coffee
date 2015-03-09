@@ -88,7 +88,7 @@ class WeixinTools
       timestamp:timestamp
       url:url
       signature: sign
-      jsApiList: @jsapil || []
+      jsApiList: @jsApiList || []
     return result
 
   # 生成一个带回调http_url 的链接
