@@ -1,7 +1,7 @@
 {
   "name": "weixin-tools",
   "description": "weixin-tools APP",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/yxdh4620/weixin-tools",
   "author": {
     "name": "yxdh4620",
@@ -20,7 +20,7 @@
       "url": "https://github.com/yxdh4620/weixin-tools/blob/master/LICENSE-NA"
     }
   ],
-  "main": "./lib/weixin-tools.js",
+  "main": "index.js",
   "engines": {
     "node": ">= 0.8.0"
   },
