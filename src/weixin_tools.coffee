@@ -11,10 +11,12 @@ oauth = require "./utils/oauth"
 
 class WeixinTools
 
-  constructor: (appid, secret) ->
+  constructor: (appid, secret, jsApiList, isDebug) ->
     debuglog "LOG [weixin_tools::constructor] start"
     @appid = appid
     @secret = secret
+    @isDebug = isDebug || false
+    @jsApiList = jsApiList || []
     assert @appid, "missing weixin appid"
     assert @secret, "missing weixin secret"
     return
@@ -86,6 +88,7 @@ class WeixinTools
       timestamp:timestamp
       url:url
       signature: sign
+      jsApiList: @jsapil || []
     return result
 
   # 生成一个带回调http_url 的链接
