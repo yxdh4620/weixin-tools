@@ -87,7 +87,6 @@ class WeixinTools
       jsapi_ticket:jsapi_ticket
       nonceStr: noncestr
       timestamp:timestamp
-      url:url
       signature: sign
       jsApiList: @jsApiList || []
     return result
