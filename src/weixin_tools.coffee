@@ -82,9 +82,10 @@ class WeixinTools
     timestamp = @generateTimestamp()
     sign = @makeSignature url, jsapi_ticket, noncestr, timestamp
     result =
+      debug:@isDebug
       appId:@appid
       jsapi_ticket:jsapi_ticket
-      noncestr: noncestr
+      nonceStr: noncestr
       timestamp:timestamp
       url:url
       signature: sign
