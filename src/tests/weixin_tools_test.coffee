@@ -13,6 +13,12 @@ url="http://mp.weixin.qq.com?params=value"
 signature = '0f9de62fce790f9a083d5c99e95740ceb90c27ed'
 signature = '0f9de62fce790f9a083d5c99e95740ceb90c27ed'
 
+signArgs =
+  noncestr:"Wm3WZYTPz0wzccnW"
+  jsapi_ticket:"sM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qg"
+  timestamp:"1414587457"
+  url:"http://mp.weixin.qq.com?params=value"
+
 
 WeixinTools = require "../weixin_tools"
 options =
@@ -65,12 +71,12 @@ describe "test weixin_util", ->
 
   describe "signature", ->
     it "makeSignature", (done) ->
-      sign = wxt.makeSignature(url, jsapi_ticket, noncestr, timestamp)
+      sign = wxt.makeSignature signArgs
       console.log "sign: #{sign}"
       done()
 
     it "checkSignature", (done) ->
-      check = wxt.checkSignature signature, url, jsapi_ticket, noncestr, timestamp
+      check = wxt.checkSignature signature, signArgs
       console.log "check: #{check}"
       done()
 

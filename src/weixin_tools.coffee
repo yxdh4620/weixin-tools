@@ -65,14 +65,18 @@ class WeixinTools
   # param: jsapi_ticket
   # param: noncestr 一个随机字符串
   # param: timestamp 时间戳（miao）
-  makeSignature: signature.makeSignature
+  # TODO 可以改成一个可扩展的接口
+  makeSignature: (args) ->
+    #signature.makeSignature args.url, args.jsapi_ticket, args.noncestr, args.timestamp
+    return signature.makeSignature(args)
+
   # 验证签名
   # param: signature 要验证的签名
   # param: url 访问的http地址
   # param: jsapi_ticket
   # param: noncestr 一个随机字符串
   # param: timestamp 时间戳（miao）
-  checkSignature: signature.checkSignature
+  checkSignature: (sign, args) -> return signature.checkSignature(sign, args)
 
   # 生成提供给微信js-apk 使用的config
   # param: 访问地址的url,
@@ -80,7 +84,13 @@ class WeixinTools
   generateConfig: (url, jsapi_ticket) ->
     noncestr = @generateNonceStr()
     timestamp = @generateTimestamp()
-    sign = @makeSignature url, jsapi_ticket, noncestr, timestamp
+    #sign = @makeSignature url, jsapi_ticket, noncestr, timestamp
+    args =
+      url:url
+      jsapi_ticket:jsapi_ticket
+      noncestr:noncestr
+      timestamp:timestamp
+    sign = @makeSignature args
     result =
       debug:@isDebug
       appId:@appid
@@ -127,6 +137,11 @@ class WeixinTools
   #
   loadUserInfo: (openid, authorze_token, lang, callback) ->
     return oauth.loadUserInfo openid, authorze_token, lang, callback
+
+  ############################ 支付相关 start ##########################################
+  makePaySignature : (args) ->
+
+  ############################ 支付相关 end ##########################################
 
 module.exports = WeixinTools
 
