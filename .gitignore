@@ -22,13 +22,7 @@ build/
 
 /src/local_tests
 /.idea
-/config/
 Capfile
-config.*
-views/static_pages/index.html
-views/static_pages/enterprise_service/*.html
-views/static_pages/pages/editor_features/index.html
-views/static_pages/editor_features/index.html
 
 dump.rdb
 
