@@ -7,7 +7,10 @@ assert = require "assert"
 request = require 'request'
 
 RequestUrls =  require "../enums/request_urls"
-# 获取自定义菜单JSON的接口
+
+# 获取自定义菜单JSON的接口 获取自定义菜单， 有访问限制
+  ## param： access_token
+  ## param:  callback
 loadMenus = (access_token, callback) ->
   url = "#{RequestUrls.GET_MENUS_URL}?access_token=#{access_token}"
   options =
@@ -21,6 +24,8 @@ loadMenus = (access_token, callback) ->
   return
 
 # 删除自定义菜单
+# param： access_token
+# param:  callback
 deleteMenus = (access_token, callback) ->
   url = "#{RequestUrls.DELETE_MENUS_URL}?access_token=#{access_token}"
   options =
@@ -34,6 +39,8 @@ deleteMenus = (access_token, callback) ->
   return
 
 # 创建自定义菜单的接口
+# param： access_token
+# param:  callback
 createMenus = (access_token, menus, callback) ->
   url = "#{RequestUrls.POST_MENUS_URL}?access_token=#{access_token}"
   options =

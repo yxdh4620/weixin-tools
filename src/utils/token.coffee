@@ -6,19 +6,16 @@ debuglog = require("debug")("utils::token")
 assert = require "assert"
 request = require 'request'
 _ = require 'underscore'
-
 RequestUrls =  require "../enums/request_urls"
 
-#WEIXIN_APP_ID = null
-#WEIXIN_SECRET = null
-#
-#init = (appid, secret) ->
-#  WEIXIN_APP_ID = appid
-#  WEIXIN_SECRET = secret
-
 #获取access_token , 有访问次数限制， 获得后需要本地缓存
-loadAccessToken = (appid, secret, callback) ->
-  url = "#{RequestUrls.GET_ACCESS_TOKEN_URL}?grant_type=client_credential&appid=#{appid}&secret=#{secret}"
+# param: callback 回调函数， （err, token）
+# 正常token是一个json对象， 如下:
+# { access_token: 'f5MOW9CXcxrJxEPNoLI431iG-SEvBlwCWbGMfrATF8-6_gMC6_6-Ipqmy2OnYS1M20MB5XZXAE7vAHCbyU1tFqvcJ6pWrYaSbndsraO5ZmA',
+#   expires_in: 7200 }
+loadAccessToken = (callback) ->
+  console.log "appid: #{@appid}"
+  url = "#{RequestUrls.GET_ACCESS_TOKEN_URL}?grant_type=client_credential&appid=#{@appid}&secret=#{@secret}"
   console.log url
   options =
     url: url
@@ -34,6 +31,13 @@ loadAccessToken = (appid, secret, callback) ->
   return
 
 #获取jsapi_ticket, 有访问次数限制， 获得后需要本地缓存
+# param: access_token
+# param: callback 回调函数， （err, ticket）
+# 正常token是一个json对象， 如下:
+# { errcode: 0,
+#   errmsg: 'ok',
+#   ticket: 'sM4AOVdWfPE4DxkXGEs8VFXzXlm0blQsLfNUpWD-79wW-qQt4bbntT_ej_zUtj3BrLltJGJDuB0s-_BRivFo5Q',
+#   expires_in: 7200 }
 loadJsapiTicket = (access_token, callback) ->
   url = "#{RequestUrls.GET_JSAPI_TICKET_URL}?access_token=#{access_token}&type=jsapi"
   options =

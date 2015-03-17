@@ -2,6 +2,7 @@ should = require "should"
 
 p = require "commander"
 env = p.environment || 'development'
+_ = require 'underscore'
 config = require('../config/config')[env]
 
 menus = config.menus
@@ -25,65 +26,74 @@ options =
   appid : config.appid
   secret : config.secret
 
-wxt = new WeixinTools(options.appid, options.secret)
-
+wxt = new WeixinTools(options)
+console.dir wxt
 token = null
 describe "test weixin_util", ->
   before () ->
     # before test happen
+  #describe "test", ->
+  #  it "test", (done) ->
+  #    a = {name:"hh"}
+  #    b = {name:"dd", age:15}
+  #    c =  _.extend a, b
+  #    console.dir a
+  #    console.dir b
+  #    console.dir c
+  #    done()
 
-  describe "token", ->
-    it "should get access_token", (done) ->
-      wxt.loadAccessToken (err, data) ->
-        console.dir err if err?
-        token = data
-        console.dir token
-        done()
+  #describe "token", ->
+  #  it "should get access_token", (done) ->
+  #    wxt.loadAccessToken (err, data) ->
+  #      console.dir err if err?
+  #      token = data
+  #      console.dir token
+  #      done()
 
-    it "should get jsapi_ticket", (done) ->
-      return done() unless token?
-      wxt.loadJsapiTicket token.access_token, (err, data) ->
-        console.log err if err?
-        console.dir data
-        done()
+  #  it "should get jsapi_ticket", (done) ->
+  #    return done() unless token?
+  #    wxt.loadJsapiTicket token.access_token, (err, data) ->
+  #      console.log err if err?
+  #      console.dir data
+  #      done()
 
-  describe "menus", ->
-    it "should load menus", (done) ->
-      return done() unless token?
-      wxt.loadMenus token.access_token, (err, data) ->
-        console.log err if err?
-        console.log JSON.stringify(data)
-        done()
+  #describe "menus", ->
+  #  it "should load menus", (done) ->
+  #    return done() unless token?
+  #    wxt.loadMenus token.access_token, (err, data) ->
+  #      console.log err if err?
+  #      console.log JSON.stringify(data)
+  #      done()
 
-    it "should delete menus", (done) ->
-      return done() unless token?
-      wxt.deleteMenus token.access_token, (err, data) ->
-        console.log err if err?
-        console.dir data
-        done()
+  #  it "should delete menus", (done) ->
+  #    return done() unless token?
+  #    wxt.deleteMenus token.access_token, (err, data) ->
+  #      console.log err if err?
+  #      console.dir data
+  #      done()
 
-    it "should create menus", (done) ->
-      return done() unless token?
-      wxt.createMenus token.access_token, menus, (err, data) ->
-        console.log err if err?
-        console.dir data
-        done()
+  #  it "should create menus", (done) ->
+  #    return done() unless token?
+  #    wxt.createMenus token.access_token, menus, (err, data) ->
+  #      console.log err if err?
+  #      console.dir data
+  #      done()
 
-  describe "signature", ->
-    it "makeSignature", (done) ->
-      sign = wxt.makeSignature signArgs
-      console.log "sign: #{sign}"
-      done()
+  #describe "signature", ->
+  #  it "makeSignature", (done) ->
+  #    sign = wxt.makeSignature signArgs
+  #    console.log "sign: #{sign}"
+  #    done()
 
-    it "checkSignature", (done) ->
-      check = wxt.checkSignature signature, signArgs
-      console.log "check: #{check}"
-      done()
+  #  it "checkSignature", (done) ->
+  #    check = wxt.checkSignature signature, signArgs
+  #    console.log "check: #{check}"
+  #    done()
 
-    it "generateConfig", (done) ->
-      config = wxt.generateConfig url, jsapi_ticket
-      console.dir config
-      done()
+  #  it "generateConfig", (done) ->
+  #    config = wxt.generateConfig url, jsapi_ticket
+  #    console.dir config
+  #    done()
 
 
   describe "oauth", ->
