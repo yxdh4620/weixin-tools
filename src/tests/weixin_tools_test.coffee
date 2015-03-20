@@ -29,7 +29,7 @@ options =
 wxt = new WeixinTools(options)
 console.dir wxt
 token = null
-describe "test weixin_util", ->
+describe "test weixin_tools", ->
   before () ->
     # before test happen
   #describe "test", ->

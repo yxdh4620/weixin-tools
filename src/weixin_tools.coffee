@@ -16,14 +16,21 @@ class WeixinTools
     assert @appid, "missing weixin appid"
     assert @secret, "missing weixin secret"
 
+    @mixins()
+    return
+
+
+  mixins: ->
     #获取TOKEN jsapi_ticket 的模块
-    @mixin(require("./utils/token"))
-    #自定义菜单模块
-    @mixin(require("./utils/menus"))
+    @mixin(require("./models/token"))
     #签名验证模块
-    @mixin(require("./utils/signature"))
+    @mixin(require("./models/signature"))
+    #自定义菜单模块
+    @mixin(require("./models/menus"))
     # oauth2 模块
-    @mixin(require("./utils/oauth"))
+    @mixin(require("./models/oauth"))
+    # 支付模块
+    @mixin(require("./models/pay"))
     return
 
   mixin: (obj) ->
