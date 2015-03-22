@@ -5,18 +5,18 @@ debuglog = require("debug")("utils::signature")
 crypto = require 'crypto'
 request = require 'request'
 _ = require 'underscore'
-helps = require "./helps"
+helps = require "../utils/helps"
 
-_raw = (args)  ->
-  keys = _.keys(args)
-  keys = keys.sort()
-  newArgs = {}
-  keys.forEach (key) ->
-    newArgs[key.toLowerCase()] = args[key]
-  str = ""
-  for k,v of newArgs
-    str += "&"+k+"="+v
-  return str.substr(1)
+#_raw = (args)  ->
+#  keys = _.keys(args)
+#  keys = keys.sort()
+#  newArgs = {}
+#  keys.forEach (key) ->
+#    newArgs[key.toLowerCase()] = args[key]
+#  str = ""
+#  for k,v of newArgs
+#    str += "&"+k+"="+v
+#  return str.substr(1)
 
 # 计算签名
 #makeSignature = (url, jsapi_ticket, noncestr, timestamp) ->

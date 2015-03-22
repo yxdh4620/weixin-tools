@@ -12,6 +12,11 @@ module.exports =
   GET_RE_AUTHORIZE_TOKEN_URL: "https://api.weixin.qq.com/sns/oauth2/refresh_token"
   GET_USER_INFO_URL: "https://api.weixin.qq.com/sns/userinfo"
 
-
+  PAY_UNIFIED_ORDER: "https://api.mch.weixin.qq.com/pay/unifiedorder"
+  PAY_ORDER_QUERY: "https://api.mch.weixin.qq.com/pay/orderquery"
+  PAY_REFUND: "https://api.mch.weixin.qq.com/secapi/pay/refund"
+  PAY_REFUND_QUERY: "https://api.mch.weixin.qq.com/pay/refundquery"
+  PAY_DOWNLOAD_BILL: "https://api.mch.weixin.qq.com/pay/downloadbill"
+  PAY_SHORT_URL: "https://api.mch.weixin.qq.com/tools/shorturl"
 
 

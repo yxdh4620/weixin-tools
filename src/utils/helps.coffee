@@ -4,7 +4,8 @@
 
 debuglog = require("debug")("utils::helps")
 _ = require 'underscore'
-xmlParser = require('xml2json')
+xml2js = require('xml2js')
+#xmlParser = require('xml2json')
 
 #将传人的参数转为一个get 请求参数的字符串
 raw = (args)  ->
@@ -18,19 +19,19 @@ raw = (args)  ->
     str += "&"+k+"="+v
   return str.substr(1)
 
-xml2json = (xml) ->
-  str = xmlParser.toJson(xml)
-  return unless str
-  try
-    console.log str
-    console.log xmlParser.toXml(str)
-    return JSON.parse(str).xml
-  catch err
-    debuglog "[ERROR] error: #{err}"
-  return null
+xml2json = (xml, callback) ->
+  xml2js.parseString xml, {
+    trim: true,
+    explicitArray: false
+  }, (err, json) ->
+    return callback err if err?
+    data = if json? then json.xml else {}
+    return callback null, data
 
-json2xml = (json) ->
-  return xmlParser.toXml(json)
+json2xml = (obj) ->
+  builder = new xml2js.Builder()
+  xml = builder.buildObject({xml:obj})
+  return xml
 
 module.exports =
   raw:raw

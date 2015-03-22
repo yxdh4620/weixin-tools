@@ -1,6 +1,5 @@
 debuglog = require("debug")("weixin_tools")
 assert = require "assert"
-oauth = require "./utils/oauth"
 
 ###
 # 微信的工具类
@@ -15,6 +14,15 @@ class WeixinTools
     @jsApiList = options.jsApiList || []
     assert @appid, "missing weixin appid"
     assert @secret, "missing weixin secret"
+
+    #支付用参数
+    @payOptions = {}
+    @payOptions.mchId = options.mchId
+    @payOptions.partnerKey = options.partnerKey
+    @payOptions.subMchId = options.subMchId
+    @payOptions.notifyUrl = options.notifyUrl
+    @payOptions.passphrase = options.passphrase || options.mchId
+    @payOptions.pfx = options.pfx
 
     @mixins()
     return

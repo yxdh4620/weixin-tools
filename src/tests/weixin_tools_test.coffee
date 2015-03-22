@@ -25,6 +25,9 @@ WeixinTools = require "../weixin_tools"
 options =
   appid : config.appid
   secret : config.secret
+  mchId:  10000100
+  partnerKey: '192006250b4c09247ec02edce69f6a2d'
+  notifyUrl: 'http://weixin.gamagama.cn'
 
 wxt = new WeixinTools(options)
 console.dir wxt
@@ -106,10 +109,36 @@ describe "test weixin_tools", ->
       console.log url3
       done()
 
-    it "loadAuthorzeToken", (done) ->
-      wxt.loadAuthorzeToken "code", (err, data) ->
-        console.log err if err?
-        console.dir data
+    #it "loadAuthorzeToken", (done) ->
+    #  wxt.loadAuthorzeToken "code", (err, data) ->
+    #    console.log err if err?
+    #    console.dir data
+    #    done()
+
+  describe "pay", ->
+    it "makePaySignature", (done) ->
+      args =
+        appid: 'wxd930ea5d5a258f4f'
+        device_info: 1000
+        body:  "test"
+        nonce_str: 'ibuaiVcKdpRxkhJA'
+        mch_id: wxt.payOptions.mchId
+
+      sign = wxt.makePaySignature(args)
+      console.log "pay sign : #{sign}"
+      done()
+    it "getBrandWCPayRequestParams", (done) ->
+      order =
+        body: '吮指原味鸡 * 1',
+        #attach: '{"部位":"三角"}',
+        out_trade_no: 'kfc001',
+        total_fee: 10 * 100,
+        spbill_create_ip: "8.8.8.8",
+        openid: "dsafasdfafdasf",
+        trade_type: 'JSAPI'
+      wxt.getBrandWCPayRequestParams order, (err, body) ->
+        console.error "ERROR: #{err}"
+        console.dir body
         done()
 
 
