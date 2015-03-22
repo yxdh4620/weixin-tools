@@ -17,7 +17,9 @@ PAY_DEFAULT_PARAMS = null
 # 微信支付的签名算法
 makePaySignature = (args, signType="md5") ->
   #console.dir args
-  str = helps.raw args
+  pkg = _.clone(args)
+  delete pkg.sign
+  str = helps.raw pkg
   #console.log "str: #{str}"
   str += "&key=#{@payOptions.partnerKey}"
   #console.log "str: #{str}"
@@ -28,7 +30,6 @@ makePaySignature = (args, signType="md5") ->
 
 ###
 获取JSAPI支付参数
-
 order = {
   body: '吮指原味鸡 * 1',
   #attach: '{"部位":"三角"}',
@@ -57,11 +58,8 @@ getBrandWCPayRequestParams = (args, callback) ->
   request options, (err, res, body) =>
     #console.dir body
     return callback err if err?
-    helps.xml2json body, (err, data) =>
+    @payValidate body, (err, data) =>
       return callback err if err?
-      return callback new Error("result data is error") if _.isEmpty(data)
-      return callback new Error("errCode:#{data.return_code} message:#{data.return_msg}") unless data.return_code? and data.return_code == 'SUCCESS'
-      return callback new Error("errCode: #{data.err_code} message:#{data.err_code_des}") unless data.result_code? and data.result_code == 'SUCCESS'
       results =
         appId: @appid
         timeStamp: @generateTimestamp()
@@ -72,10 +70,24 @@ getBrandWCPayRequestParams = (args, callback) ->
       results.paySign = sign
       return callback null,results
 
+# 验证返回的xml数据，并转为JSON 数据
+payValidate = (xml, callback) ->
+  console.log xml
+
+  helps.xml2json xml, (err, data) =>
+    console.dir data
+    return callback err if err?
+    return callback new Error("result data is error") if _.isEmpty(data)
+    return callback new Error("errCode: #{data.return_code} message: #{data.return_msg}") unless data.return_code? and data.return_code == 'SUCCESS'
+    return callback new Error("errCode: #{data.err_code} message: #{data.err_code_des}") unless data.result_code? and data.result_code == 'SUCCESS'
+    return callback new Error("Invalid appId") unless data.appid? and data.appid == @appid
+    return callback new Error("Invalid mch_id") unless data.mch_id? and data.mch_id == @mchId
+    return callback new Error("Invalid Signature") unless data.sign? and data.sign == @makePaySignature(data)
+    return callback null, data
 
 
 module.exports =
   makePaySignature: makePaySignature
   getBrandWCPayRequestParams:getBrandWCPayRequestParams
-
+  payValidate: payValidate
 
