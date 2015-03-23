@@ -25,12 +25,7 @@ WeixinTools = require "../weixin_tools"
 options =
   appid : config.appid
   secret : config.secret
-  payOptions:
-    mchId:  10000100
-    partnerKey: '192006250b4c09247ec02edce69f6a2d'
-    notifyUrl: 'http://weixin.qq.cn'
-
-#partnerKey: sgf98R7589iHI9e47568Qs028767UWsw
+  payOptions: config.payOptions
 
 wxt = new WeixinTools(options)
 console.dir wxt
