@@ -16,13 +16,14 @@ class WeixinTools
     assert @secret, "missing weixin secret"
 
     #支付用参数
-    @payOptions = {}
-    @payOptions.mchId = options.mchId
-    @payOptions.partnerKey = options.partnerKey
-    @payOptions.subMchId = options.subMchId
-    @payOptions.notifyUrl = options.notifyUrl
-    @payOptions.passphrase = options.passphrase || options.mchId
-    @payOptions.pfx = options.pfx
+    @payOptions = options.payOptions
+    assert @payOptions, "missing weixin payOptions"
+    @payOptions.passphrase = @payOptions.passphrase || @payOptions.mchId
+    #@payOptions.mchId = options.mchId
+    #@payOptions.partnerKey = options.partnerKey
+    #@payOptions.subMchId = options.subMchId
+    #@payOptions.notifyUrl = options.notifyUrl
+    #@payOptions.pfx = options.pfx
 
     @mixins()
     return

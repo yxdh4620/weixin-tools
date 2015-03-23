@@ -25,9 +25,12 @@ WeixinTools = require "../weixin_tools"
 options =
   appid : config.appid
   secret : config.secret
-  mchId:  10000100
-  partnerKey: '192006250b4c09247ec02edce69f6a2d'
-  notifyUrl: 'http://weixin.gamagama.cn'
+  payOptions:
+    mchId:  10000100
+    partnerKey: '192006250b4c09247ec02edce69f6a2d'
+    notifyUrl: 'http://weixin.qq.cn'
+
+#partnerKey: sgf98R7589iHI9e47568Qs028767UWsw
 
 wxt = new WeixinTools(options)
 console.dir wxt
@@ -129,12 +132,13 @@ describe "test weixin_tools", ->
       done()
     it "getBrandWCPayRequestParams", (done) ->
       order =
-        body: '吮指原味鸡 * 1',
+        body: '吮指原味鸡',
         #attach: '{"部位":"三角"}',
-        out_trade_no: 'kfc001',
-        total_fee: 10 * 100,
+        #body: 'key'
+        out_trade_no: 'kfc003',
+        total_fee: 1,
         spbill_create_ip: "8.8.8.8",
-        openid: "dsafasdfafdasf",
+        openid: "o-5Zdt8pmmpmYqXbTbDUpXwx_kOk",
         trade_type: 'JSAPI'
       wxt.getBrandWCPayRequestParams order, (err, body) ->
         console.error "ERROR: #{err}"

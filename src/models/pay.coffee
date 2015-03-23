@@ -20,9 +20,7 @@ makePaySignature = (args, signType="md5") ->
   pkg = _.clone(args)
   delete pkg.sign
   str = helps.raw pkg
-  #console.log "str: #{str}"
   str += "&key=#{@payOptions.partnerKey}"
-  #console.log "str: #{str}"
   digest = crypto.createHash(signType)
     .update(str)
     .digest("hex")
@@ -46,17 +44,14 @@ getBrandWCPayRequestParams = (args, callback) ->
   args.mch_id = @payOptions.mchId
   args.notify_url = @payOptions.notifyUrl
   args.nonce_str = @generateNonceStr()
+  args = helps.rankAndEncode(args)
   args.sign = @makePaySignature(args)
-  #console.dir args
   xml = helps.json2xml(args)
-  #console.log "xml: #{xml}"
   options =
     url: RequestUrls.PAY_UNIFIED_ORDER
     method: "POST"
     body: xml
-  #console.dir options
   request options, (err, res, body) =>
-    #console.dir body
     return callback err if err?
     @payValidate body, (err, data) =>
       return callback err if err?
@@ -72,16 +67,16 @@ getBrandWCPayRequestParams = (args, callback) ->
 
 # 验证返回的xml数据，并转为JSON 数据
 payValidate = (xml, callback) ->
-  console.log xml
-
+  #console.log xml
   helps.xml2json xml, (err, data) =>
-    console.dir data
+    #console.dir data
+    #console.log "mch_id:#{@payOptions.mchId} appId:#{@appid} sign:#{@makePaySignature(data)} "
     return callback err if err?
     return callback new Error("result data is error") if _.isEmpty(data)
     return callback new Error("errCode: #{data.return_code} message: #{data.return_msg}") unless data.return_code? and data.return_code == 'SUCCESS'
     return callback new Error("errCode: #{data.err_code} message: #{data.err_code_des}") unless data.result_code? and data.result_code == 'SUCCESS'
     return callback new Error("Invalid appId") unless data.appid? and data.appid == @appid
-    return callback new Error("Invalid mch_id") unless data.mch_id? and data.mch_id == @mchId
+    return callback new Error("Invalid mch_id") unless data.mch_id? and data.mch_id == @payOptions.mchId
     return callback new Error("Invalid Signature") unless data.sign? and data.sign == @makePaySignature(data)
     return callback null, data
 
