@@ -128,9 +128,7 @@ describe "test weixin_tools", ->
     it "getBrandWCPayRequestParams", (done) ->
       order =
         body: '吮指原味鸡',
-        #attach: '{"部位":"三角"}',
-        #body: 'key'
-        out_trade_no: 'kfc003',
+        out_trade_no: 'kfc004',
         total_fee: 1,
         spbill_create_ip: "8.8.8.8",
         openid: "o-5Zdt8pmmpmYqXbTbDUpXwx_kOk",

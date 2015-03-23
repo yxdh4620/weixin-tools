@@ -51,26 +51,30 @@ getBrandWCPayRequestParams = (args, callback) ->
     url: RequestUrls.PAY_UNIFIED_ORDER
     method: "POST"
     body: xml
+  console.log xml
   request options, (err, res, body) =>
     return callback err if err?
     @payValidate body, (err, data) =>
       return callback err if err?
-      results =
+      jsConfig =
         appId: @appid
         timeStamp: @generateTimestamp()
         nonceStr: @generateNonceStr()
         signType: "MD5"
         package: "prepay_id=#{data.prepay_id}"
-      sign = makePaySignature results
-      results.paySign = sign
+      sign = @makePaySignature jsConfig
+      jsConfig.paySign = sign
+      results =
+        jsConfig:jsConfig
+        result: data
       return callback null,results
 
 # 验证返回的xml数据，并转为JSON 数据
 payValidate = (xml, callback) ->
   #console.log xml
   helps.xml2json xml, (err, data) =>
-    #console.dir data
-    #console.log "mch_id:#{@payOptions.mchId} appId:#{@appid} sign:#{@makePaySignature(data)} "
+    console.dir data
+    console.log "mch_id:#{@payOptions.mchId} appId:#{@appid} sign:#{@makePaySignature(data)} "
     return callback err if err?
     return callback new Error("result data is error") if _.isEmpty(data)
     return callback new Error("errCode: #{data.return_code} message: #{data.return_msg}") unless data.return_code? and data.return_code == 'SUCCESS'
