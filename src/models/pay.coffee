@@ -89,4 +89,5 @@ module.exports =
   makePaySignature: makePaySignature
   getBrandWCPayRequestParams:getBrandWCPayRequestParams
   payValidate: payValidate
-
+  xml2json: helps.xml2json
+  json2xml: helps.json2xml
