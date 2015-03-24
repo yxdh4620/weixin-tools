@@ -10,7 +10,16 @@ module.exports =
       mchId:  10000100
       partnerKey: '192006250b4c09247ec02edce69f6a2d'
       notifyUrl: 'http://weixin.qq.cn'
-
+    jsApiList: [
+      'checkJsApi',
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'onMenuShareWeibo',
+      'addCard',
+      'chooseCard',
+      'openCard'
+    ]
     menus : {
       "button":[
         {

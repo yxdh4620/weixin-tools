@@ -8,6 +8,7 @@ class WeixinTools
 
   constructor: (options) ->
     debuglog "LOG [weixin_tools::constructor] start"
+    console.dir options
     @appid = options.appid
     @secret = options.secret
     @isDebug = options.isDebug || false
@@ -26,6 +27,7 @@ class WeixinTools
     #@payOptions.pfx = options.pfx
 
     @mixins()
+    console.dir @
     return
 
 

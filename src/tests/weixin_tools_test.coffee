@@ -26,6 +26,7 @@ options =
   appid : config.appid
   secret : config.secret
   payOptions: config.payOptions
+  jsApiList: config.jsApiList
 
 wxt = new WeixinTools(options)
 console.dir wxt
