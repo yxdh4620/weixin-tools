@@ -134,38 +134,45 @@ describe "test weixin_tools", ->
   #    done()
 
 
-  describe "oauth", ->
-    it "generateAuthorizeURL", (done) ->
-      url1 = wxt.generateAuthorizeURL "http://www.baidu.com"
-      console.log url1
-      url2 = wxt.generateAuthorizeURL "http://www.baidu.com", "haha"
-      console.log url2
-      url3 = wxt.generateAuthorizeURL "http://www.baidu.com", "haha", "snsapi_userinfo"
-      console.log url3
-      done()
+  #describe "oauth", ->
+  #  it "generateAuthorizeURL", (done) ->
+  #    url1 = wxt.generateAuthorizeURL "http://www.baidu.com"
+  #    console.log url1
+  #    url2 = wxt.generateAuthorizeURL "http://www.baidu.com", "haha"
+  #    console.log url2
+  #    url3 = wxt.generateAuthorizeURL "http://www.baidu.com", "haha", "snsapi_userinfo"
+  #    console.log url3
+  #    done()
 
-    #it "loadAuthorzeToken", (done) ->
-    #  wxt.loadAuthorzeToken "code", (err, data) ->
-    #    console.log err if err?
-    #    console.dir data
-    #    done()
+  #  #it "loadAuthorzeToken", (done) ->
+  #  #  wxt.loadAuthorzeToken "code", (err, data) ->
+  #  #    console.log err if err?
+  #  #    console.dir data
+  #  #    done()
 
   describe "pay", ->
     it "makePaySignature", (done) ->
+      #args =
+      #  appid: 'wxd930ea5d5a258f4f'
+      #  device_info: 1000
+      #  body:  "test"
+      #  nonce_str: 'ibuaiVcKdpRxkhJA'
+      #  mch_id: wxt.payOptions.mchId
       args =
-        appid: 'wxd930ea5d5a258f4f'
-        device_info: 1000
-        body:  "test"
-        nonce_str: 'ibuaiVcKdpRxkhJA'
-        mch_id: wxt.payOptions.mchId
-
+        appId: 'wxe91769cfb4209cc5'
+        timeStamp: 1427192246
+        nonceStr: 'b8avag115gpeqao'
+        signType: 'MD5'
+        package: 'prepay_id=wx201503241817261d813e806a0643621261'
+      signature = '98BE5F7D1B3A7B5FE2EAD9B0EC119BD9'
       sign = wxt.makePaySignature(args)
       console.log "pay sign : #{sign}"
       done()
     it "getBrandWCPayRequestParams", (done) ->
       order =
         body: '吮指原味鸡',
-        out_trade_no: 'kfc004',
+        #body: 'abdc'
+        out_trade_no: 'kfc008',
         total_fee: 1,
         spbill_create_ip: "8.8.8.8",
         openid: "o-5Zdt8pmmpmYqXbTbDUpXwx_kOk",
@@ -175,15 +182,41 @@ describe "test weixin_tools", ->
         console.dir body
         done()
 
+  #describe "test", ->
+  #  it "xml 2 json", (done) ->
+  #    wxt.xml2json xml_test, (err, json) ->
+  #      console.dir json
+  #      done()
 
-  describe "test", ->
+  #  it "json 2 xml", (done) ->
+  #    console.log wxt.json2xml(json_test)
+  #    done()
 
-    it "xml 2 json", (done) ->
-      wxt.xml2json xml_test, (err, json) ->
-        console.dir json
-        done()
+  #describe "message", ->
+  #  messages =
+  #    "touser":"o-5Zdt8pmmpmYqXbTbDUpXwx_kOk"
+  #    "template_id":"Cx7lfTxetVWVKf77h8DRyEj93XfcazYt3faMl9Hhwl8"
+  #    "url":"http://weixin.gamagame.cn"
+  #    "topcolor":"#FF0000"
+  #    "data":
+  #       "first":
+  #         "value":"您预约报名参加的活动，将要开始了"
+  #         "color":"#173177"
+  #       "keynote1":
+  #         "value":"皇上快点群妃乱斗"
+  #         "color":"#173177"
+  #       "keynote2":
+  #         "value":"今天10:00"
+  #         "color":"#173177"
+  #       "remark":
+  #         "value":"欢迎进入游戏"
+  #         "color":"#173177"
+  #  access_token = "S46cBuZhmFgC0XlgR4VNLIhsui7aimzuzIxY8-kYVZoPm4_ijWbi0pScnreZztnje19Bi5cPEzjOyvsfkUo_Qb3dXCQvvSrl87CzuZStZ8A"
+  #  it "send template message", (done) ->
+  #    wxt.sendTemplateMessage messages, access_token, (err, body) ->
+  #      console.error err if err?
+  #      console.dir body
+  #      done()
 
-    it "json 2 xml", (done) ->
-      console.log wxt.json2xml(json_test)
-      done()
+
 

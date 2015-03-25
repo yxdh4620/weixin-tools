@@ -13,7 +13,8 @@ rank = (args) ->
   keys = keys.sort()
   newArgs = {}
   keys.forEach (key) ->
-    newArgs[key.toLowerCase()] = args[key]
+    #newArgs[key.toLowerCase()] = args[key]
+    newArgs[key] = args[key]
   return newArgs
 
 rankAndEncode = (args) ->
@@ -21,7 +22,12 @@ rankAndEncode = (args) ->
   keys = keys.sort()
   newArgs = {}
   keys.forEach (key) ->
-    newArgs[key.toLowerCase()] = encodeURIComponent(args[key])
+    #newArgs[key.toLowerCase()] = encodeURIComponent(args[key])
+    #newArgs[key.toLowerCase()] = escape(args[key])
+    #newArgs[key.toLowerCase()] = args[key]
+    #newArgs[key] = escape(args[key])
+    #newArgs[key] = encodeURIComponent(args[key])
+    newArgs[key] = args[key]
   return newArgs
 
 #将传人的参数转为一个get 请求参数的字符串
@@ -30,7 +36,9 @@ raw = (args)  ->
   keys = keys.sort()
   newArgs = {}
   keys.forEach (key) ->
-    newArgs[key.toLowerCase()] = args[key]
+    newArgs[key] = args[key]
+    #newArgs[key] = escape(args[key])
+    #newArgs[key.toLowerCase()] = args[key]
   str = ""
   for k,v of newArgs
     str += "&"+k+"="+v

@@ -11,6 +11,7 @@ crypto = require 'crypto'
 request = require 'request'
 RequestUrls =  require "../enums/request_urls"
 helps = require "../utils/helps"
+iconv = require "iconv-lite"
 
 PAY_DEFAULT_PARAMS = null
 
@@ -21,6 +22,7 @@ makePaySignature = (args, signType="md5") ->
   delete pkg.sign
   str = helps.raw pkg
   str += "&key=#{@payOptions.partnerKey}"
+  str = iconv.encode(str,'utf8')
   digest = crypto.createHash(signType)
     .update(str)
     .digest("hex")
@@ -47,11 +49,11 @@ getBrandWCPayRequestParams = (args, callback) ->
   args = helps.rankAndEncode(args)
   args.sign = @makePaySignature(args)
   xml = helps.json2xml(args)
+  console.log xml
   options =
     url: RequestUrls.PAY_UNIFIED_ORDER
     method: "POST"
     body: xml
-  console.log xml
   request options, (err, res, body) =>
     return callback err if err?
     @payValidate body, (err, data) =>
@@ -71,7 +73,6 @@ getBrandWCPayRequestParams = (args, callback) ->
 
 # 验证返回的xml数据，并转为JSON 数据
 payValidate = (xml, callback) ->
-  #console.log xml
   helps.xml2json xml, (err, data) =>
     console.dir data
     console.log "mch_id:#{@payOptions.mchId} appId:#{@appid} sign:#{@makePaySignature(data)} "

@@ -16,7 +16,6 @@ RequestUrls =  require "../enums/request_urls"
 loadAccessToken = (callback) ->
   console.log "appid: #{@appid}"
   url = "#{RequestUrls.GET_ACCESS_TOKEN_URL}?grant_type=client_credential&appid=#{@appid}&secret=#{@secret}"
-  console.log url
   options =
     url: url
     method: "GET"

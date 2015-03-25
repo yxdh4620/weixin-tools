@@ -20,3 +20,4 @@ module.exports =
   PAY_SHORT_URL: "https://api.mch.weixin.qq.com/tools/shorturl"
 
 
+  SEND_TEMPLATE_MESSAGE_URL: "https://api.weixin.qq.com/cgi-bin/message/template/send"

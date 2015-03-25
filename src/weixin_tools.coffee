@@ -42,6 +42,8 @@ class WeixinTools
     @mixin(require("./models/oauth"))
     # 支付模块
     @mixin(require("./models/pay"))
+    # 发送消息模块
+    @mixin(require("./models/message"))
     return
 
   mixin: (obj) ->
