@@ -60,7 +60,7 @@ getBrandWCPayRequestParams = (args, callback) ->
       return callback err if err?
       jsConfig =
         appId: @appid
-        timeStamp: @generateTimestamp()
+        timeStamp: new String(@generateTimestamp())
         nonceStr: @generateNonceStr()
         signType: "MD5"
         package: "prepay_id=#{data.prepay_id}"
