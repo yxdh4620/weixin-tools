@@ -150,37 +150,37 @@ describe "test weixin_tools", ->
   #  #    console.dir data
   #  #    done()
 
-  describe "pay", ->
-    it "makePaySignature", (done) ->
-      #args =
-      #  appid: 'wxd930ea5d5a258f4f'
-      #  device_info: 1000
-      #  body:  "test"
-      #  nonce_str: 'ibuaiVcKdpRxkhJA'
-      #  mch_id: wxt.payOptions.mchId
-      args =
-        appId: 'wxe91769cfb4209cc5'
-        timeStamp: 1427192246
-        nonceStr: 'b8avag115gpeqao'
-        signType: 'MD5'
-        package: 'prepay_id=wx201503241817261d813e806a0643621261'
-      signature = '98BE5F7D1B3A7B5FE2EAD9B0EC119BD9'
-      sign = wxt.makePaySignature(args)
-      console.log "pay sign : #{sign}"
-      done()
-    it "getBrandWCPayRequestParams", (done) ->
-      order =
-        body: '吮指原味鸡',
-        #body: 'abdc'
-        out_trade_no: 'kfc008',
-        total_fee: 1,
-        spbill_create_ip: "8.8.8.8",
-        openid: "o-5Zdt8pmmpmYqXbTbDUpXwx_kOk",
-        trade_type: 'JSAPI'
-      wxt.getBrandWCPayRequestParams order, (err, body) ->
-        console.error "ERROR: #{err}"
-        console.dir body
-        done()
+  #describe "pay", ->
+  #  it "makePaySignature", (done) ->
+  #    #args =
+  #    #  appid: 'wxd930ea5d5a258f4f'
+  #    #  device_info: 1000
+  #    #  body:  "test"
+  #    #  nonce_str: 'ibuaiVcKdpRxkhJA'
+  #    #  mch_id: wxt.payOptions.mchId
+  #    args =
+  #      appId: 'wxe91769cfb4209cc5'
+  #      timeStamp: 1427192246
+  #      nonceStr: 'b8avag115gpeqao'
+  #      signType: 'MD5'
+  #      package: 'prepay_id=wx201503241817261d813e806a0643621261'
+  #    signature = '98BE5F7D1B3A7B5FE2EAD9B0EC119BD9'
+  #    sign = wxt.makePaySignature(args)
+  #    console.log "pay sign : #{sign}"
+  #    done()
+  #  it "getBrandWCPayRequestParams", (done) ->
+  #    order =
+  #      body: '吮指原味鸡',
+  #      #body: 'abdc'
+  #      out_trade_no: 'kfc008',
+  #      total_fee: 1,
+  #      spbill_create_ip: "8.8.8.8",
+  #      openid: "o-5Zdt8pmmpmYqXbTbDUpXwx_kOk",
+  #      trade_type: 'JSAPI'
+  #    wxt.getBrandWCPayRequestParams order, (err, body) ->
+  #      console.error "ERROR: #{err}"
+  #      console.dir body
+  #      done()
 
   #describe "test", ->
   #  it "xml 2 json", (done) ->
@@ -217,6 +217,4 @@ describe "test weixin_tools", ->
   #      console.error err if err?
   #      console.dir body
   #      done()
-
-
 

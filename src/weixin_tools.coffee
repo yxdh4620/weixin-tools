@@ -27,7 +27,7 @@ class WeixinTools
     #@payOptions.pfx = options.pfx
 
     @mixins()
-    console.dir @
+    #console.dir @
     return
 
 
@@ -44,6 +44,10 @@ class WeixinTools
     @mixin(require("./models/pay"))
     # 发送消息模块
     @mixin(require("./models/message"))
+    # 接收消息模块
+    @mixin(require("./models/receive"))
+    # 素材管理模块
+    @mixin(require("./models/material"))
     return
 
   mixin: (obj) ->

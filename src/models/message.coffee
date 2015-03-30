@@ -7,6 +7,7 @@ _ = require 'underscore'
 assert = require "assert"
 request = require 'request'
 RequestUrls =  require "../enums/request_urls"
+autoReplyTemplate = require "../enums/auto_reply_template"
 
 ###
 #发送模板消息
@@ -32,9 +33,10 @@ RequestUrls =  require "../enums/request_urls"
   access_token: access_token
 #return '{"errcode":40003,"errmsg":"invalid openid"}' or '{"errcode":0,"errmsg":"ok","msgid":204924419}'
 ###
+
 sendTemplateMessage = (msg, access_token, callback) ->
   assert _.isFunction(callback), "missing callback"
-  console.dir msg
+  #console.dir msg
   return callback(new Error("msg is empty")) unless msg? and not _.isEmpty(msg)
   url = "#{RequestUrls.SEND_TEMPLATE_MESSAGE_URL}?access_token=#{access_token}"
   options =
@@ -50,10 +52,77 @@ sendTemplateMessage = (msg, access_token, callback) ->
     return
   return
 
+####
+## 自动回复消息
+####
+autoReplyMessage = (openid, type, content) ->
+  assert _.isFunction(callback), "missing callback"
+  switch type
+    when "text"
+      return replyTextMessage(openid, content)
+    when "image"
+      return replyImageMessage(openid, content)
+    when "voice"
+      return replyImageMessage(openid, content)
+    when "video"
+      return replyVideoMessage(openid, content)
+  return ""
+
+
+# 回复文本消息
+replyTextMessage = (openid, content) ->
+  assert _.isFunction(callback), "missing callback"
+  options =
+    toUser : openid
+    fromUser: @appid
+    timestamp: @generateTimestamp()
+    content:content
+  reply = _.template(autoReplyTemplate.TEXT_TP||"")(options)
+  return reply
+
+# 回复图片消息
+replyImageMessage = (openid, media_id) ->
+  assert _.isFunction(callback), "missing callback"
+  options =
+    toUser : openid
+    fromUser: @appid
+    timestamp: @generateTimestamp()
+    media_id:media_id
+  reply = _.template(autoReplyTemplate.IMAGE_TP||"")(options)
+  return reply
+
+# 回复音频消息
+replyVoiceMessage = (openid, media_id) ->
+  assert _.isFunction(callback), "missing callback"
+  options =
+    toUser : openid
+    fromUser: @appid
+    timestamp: @generateTimestamp()
+    media_id:media_id
+  reply = _.template(autoReplyTemplate.VOICE_TP||"")(options)
+  return reply
+
+# 回复视频消息
+replyVideoMessage = (openid, media_id, title, description) ->
+  assert _.isFunction(callback), "missing callback"
+  options =
+    toUser : openid
+    fromUser: @appid
+    timestamp: @generateTimestamp()
+    media_id:media_id
+    title: title||""
+    description:description||""
+  reply = _.template(autoReplyTemplate.VIDEO_TP||"")(options)
+  return reply
+
 
 module.exports =
   sendTemplateMessage:sendTemplateMessage
-
+  autoReplyMessage: autoReplyMessage
+  replyTextMessage:replyTextMessage
+  replyImageMessage:replyImageMessage
+  replyVideoMessage:replyVideoMessage
+  replyVoiceMessage:replyVoiceMessage
 
 
 
