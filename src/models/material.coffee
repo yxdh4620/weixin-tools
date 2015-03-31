@@ -110,5 +110,5 @@ getMaterialById = (access_token, id, callback) ->
 module.exports =
   loadMaterialList:loadMaterialList
   loadMaterialCount:loadMaterialCount
-
+  getMaterialById:getMaterialById
 
