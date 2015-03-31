@@ -58,16 +58,16 @@ VIDEO_TP = """
 
 #MUSIC_TP = """
 #  <xml>
-#    <ToUserName><![CDATA[toUser]]></ToUserName>
-#    <FromUserName><![CDATA[fromUser]]></FromUserName>
-#    <CreateTime>12345678</CreateTime>
-#    <MsgType><![CDATA[music]]></MsgType>
+#    <ToUserName><%=toUser%></ToUserName>
+#    <FromUserName><%=fromUser%></FromUserName>
+#    <CreateTime><%=timestamp%></CreateTime>
+#    <MsgType>music</MsgType>
 #    <Music>
-#      <Title><![CDATA[TITLE]]></Title>
-#      <Description><![CDATA[DESCRIPTION]]></Description>
-#      <MusicUrl><![CDATA[MUSIC_Url]]></MusicUrl>
-#      <HQMusicUrl><![CDATA[HQ_MUSIC_Url]]></HQMusicUrl>
-#      <ThumbMediaId><![CDATA[media_id]]></ThumbMediaId>
+#      <Title><%=title%></Title>
+#      <Description><%=description%></Description>
+#      <MusicUrl><%=music_url%></MusicUrl>
+#      <HQMusicUrl><%=hq_music_url%></HQMusicUrl>
+#      <ThumbMediaId><%=thumb_media_id%></ThumbMediaId>
 #    </Music>
 #  </xml>
 #"""

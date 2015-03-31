@@ -45,6 +45,24 @@ loadMaterialCount = (access_token, callback) ->
     return
   return
 
+getMaterialById = (access_token, id, callback) ->
+  assert _.isFunction(callback), "missing callback"
+  url = "#{RequestUrls.MATERIAL_GET_BY_ID_URL}?access_token=#{access_token}"
+  options =
+    url:url
+    json: true
+    method: "POST"
+    body:
+      media_id: id
+  request options, (err, res, body) =>
+    return callback err if err?
+    return callback new Error("invalid body") unless body?
+    return callback new Error("#{body.errcode}:#{body.errmsg}") unless not body.errcode? or (body.errcode == 0 and body.errmsg == 'ok')
+    callback null, body
+    return
+  return
+
+
 ##TODO 新增图文素材
 #addGraphicMaterial = (access_token, articles, callback) ->
 #  assert _.isFunction(callback), "missing callback"

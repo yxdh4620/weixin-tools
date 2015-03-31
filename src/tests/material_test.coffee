@@ -73,4 +73,9 @@ describe "test weixin_tools", ->
         console.dir data
         done()
 
+    it "get material by id", (done) ->
+      wxt.getMaterialById token.access_token, '', (err, data) ->
+        console.log err if err?
+        console.dir data
+        done()
 

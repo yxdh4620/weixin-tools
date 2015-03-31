@@ -26,5 +26,5 @@ module.exports =
   MATERIAL_LOAD_LIST_URL: "https://api.weixin.qq.com/cgi-bin/material/batchget_material"
   MATERIAL_LOAD_COUNT_URL: "https://api.weixin.qq.com/cgi-bin/material/get_materialcount"
   MATERIAL_ADD_NEW_URL: "https://api.weixin.qq.com/cgi-bin/material/add_news"
-
+  MATERIAL_GET_BY_ID_URL: "https://api.weixin.qq.com/cgi-bin/material/get_material"
 
