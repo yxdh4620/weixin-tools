@@ -71,7 +71,10 @@ describe "test weixin_tools", ->
       wxt.loadMaterialList token.access_token, "voice", 0, 20, (err, data) ->
         console.log err if err?
         console.dir data
-        done()
+        wxt.loadMaterialList token.access_token, "image", 0, 20, (err, data) ->
+          console.log err if err?
+          console.dir data
+          done()
 
     it "get material by id", (done) ->
       wxt.getMaterialById token.access_token, '', (err, data) ->
