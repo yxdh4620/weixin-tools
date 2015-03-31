@@ -54,12 +54,12 @@ describe "test weixin_tools", ->
     #token =
     #  access_token: "nfbIHl9p_TyQFJ6KQvF3YTrjIG1QjB14KhoRlmQ8fjCwfHHjDV7uJWL7KB3PZR4dW95QBupypwNP_tCGuuX8oEdxVNyiuxd-whpJZ2hN_dE"
     #  ticket: "sM4AOVdWfPE4DxkXGEs8VFj5UEhJXZMbuiU3wOuFKqHuT5pm3O9Y1kLceFR_XIIdtcVN9YNpVpDvUBUq7nSLkA"
-    #it "add voice material", (done) ->
-    #  filename = "/Users/user/Downloads/2dLwJrA.mp3"
-    #  wxt.addVoiceMaterial token.access_token, filename, (err, data) ->
-    #    console.log err if err?
-    #    console.dir data
-    #    done()
+    it "add voice material", (done) ->
+      filename = "/Users/user/Downloads/2dLwJrA.mp3"
+      wxt.addVoiceMaterial token.access_token, filename, (err, data) ->
+        console.log err if err?
+        console.dir data
+        done()
 
     it "load material count", (done) ->
       wxt.loadMaterialCount token.access_token, (err, data) ->
