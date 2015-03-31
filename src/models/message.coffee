@@ -62,7 +62,7 @@ autoReplyMessage = (openid, type, content) ->
     when autoReplyTemplate.REPLY_TYPE.image
       return @replyImageMessage(openid, content)
     when autoReplyTemplate.REPLY_TYPE.voice
-      return @replyImageMessage(openid, content)
+      return @replyVoiceMessage(openid, content)
     when autoReplyTemplate.REPLY_TYPE.video
       return @replyVideoMessage(openid, content)
   return ""
