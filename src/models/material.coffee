@@ -179,7 +179,7 @@ uploadMedia = (access_token, type, filepath, callback) ->
   #  return
   #return
   url = "#{RequestUrls.MEDIA_UPLOAD_URL}?access_token=#{access_token}&type=#{type}"
-  child_process.exex "curl -F media=@#{filepath} #{url}", (err, stdout, stderr) ->
+  child_process.exec "curl -F media=@#{filepath} #{url}", (err, stdout, stderr) ->
     return callback err if err?
     return callback null, stdout
 
