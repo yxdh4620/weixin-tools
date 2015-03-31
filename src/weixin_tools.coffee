@@ -20,6 +20,8 @@ class WeixinTools
     @payOptions = options.payOptions
     assert @payOptions, "missing weixin payOptions"
     @payOptions.passphrase = @payOptions.passphrase || @payOptions.mchId
+
+    @originalID = options.originalID
     #@payOptions.mchId = options.mchId
     #@payOptions.partnerKey = options.partnerKey
     #@payOptions.subMchId = options.subMchId

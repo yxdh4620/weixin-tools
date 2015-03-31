@@ -56,25 +56,23 @@ sendTemplateMessage = (msg, access_token, callback) ->
 ## 自动回复消息
 ####
 autoReplyMessage = (openid, type, content) ->
-  assert _.isFunction(callback), "missing callback"
   switch type
-    when "text"
-      return replyTextMessage(openid, content)
-    when "image"
-      return replyImageMessage(openid, content)
-    when "voice"
-      return replyImageMessage(openid, content)
-    when "video"
-      return replyVideoMessage(openid, content)
+    when autoReplyTemplate.REPLY_TYPE.text
+      return @replyTextMessage(openid, content)
+    when autoReplyTemplate.REPLY_TYPE.image
+      return @replyImageMessage(openid, content)
+    when autoReplyTemplate.REPLY_TYPE.voice
+      return @replyImageMessage(openid, content)
+    when autoReplyTemplate.REPLY_TYPE.video
+      return @replyVideoMessage(openid, content)
   return ""
 
 
 # 回复文本消息
 replyTextMessage = (openid, content) ->
-  assert _.isFunction(callback), "missing callback"
   options =
     toUser : openid
-    fromUser: @appid
+    fromUser: @originalID
     timestamp: @generateTimestamp()
     content:content
   reply = _.template(autoReplyTemplate.TEXT_TP||"")(options)
@@ -82,10 +80,9 @@ replyTextMessage = (openid, content) ->
 
 # 回复图片消息
 replyImageMessage = (openid, media_id) ->
-  assert _.isFunction(callback), "missing callback"
   options =
     toUser : openid
-    fromUser: @appid
+    fromUser: @originalID
     timestamp: @generateTimestamp()
     media_id:media_id
   reply = _.template(autoReplyTemplate.IMAGE_TP||"")(options)
@@ -93,10 +90,9 @@ replyImageMessage = (openid, media_id) ->
 
 # 回复音频消息
 replyVoiceMessage = (openid, media_id) ->
-  assert _.isFunction(callback), "missing callback"
   options =
     toUser : openid
-    fromUser: @appid
+    fromUser: @originalID
     timestamp: @generateTimestamp()
     media_id:media_id
   reply = _.template(autoReplyTemplate.VOICE_TP||"")(options)
@@ -104,10 +100,9 @@ replyVoiceMessage = (openid, media_id) ->
 
 # 回复视频消息
 replyVideoMessage = (openid, media_id, title, description) ->
-  assert _.isFunction(callback), "missing callback"
   options =
     toUser : openid
-    fromUser: @appid
+    fromUser: @originalID
     timestamp: @generateTimestamp()
     media_id:media_id
     title: title||""
