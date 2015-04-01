@@ -178,9 +178,13 @@ uploadMedia = (access_token, type, filepath, callback) ->
   #    return
   #  return
   #return
+  #'{"type":"voice","media_id":"6XjopZhcAFKvWVk_0h56hX786JRBr9kzBGFleWsra5Q1r--Y04wegsb-POF43d-D","created_at":1427800830}'
+  #'{"errcode":40004,"errmsg":"invalid media type"}'
   url = "#{RequestUrls.MEDIA_UPLOAD_URL}?access_token=#{access_token}&type=#{type}"
   child_process.exec "curl -F media=@#{filepath} \"#{url}\"", (err, stdout, stderr) ->
     return callback err if err?
+    console.log stderr
+    console.log stdout
     return callback null, stdout.toString()
 
 module.exports =
