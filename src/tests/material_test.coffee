@@ -35,25 +35,25 @@ describe "test weixin_tools", ->
   before () ->
     # before test happen
 
-  describe "token", ->
-    it "should get access_token", (done) ->
-      wxt.loadAccessToken (err, data) ->
-        console.dir err if err?
-        token = data
-        console.dir token
-        done()
+  #describe "token", ->
+  #  it "should get access_token", (done) ->
+  #    wxt.loadAccessToken (err, data) ->
+  #      console.dir err if err?
+  #      token = data
+  #      console.dir token
+  #      done()
 
-    it "should get jsapi_ticket", (done) ->
-      return done() unless token?
-      wxt.loadJsapiTicket token.access_token, (err, data) ->
-        console.log err if err?
-        console.dir data
-        done()
+  #  it "should get jsapi_ticket", (done) ->
+  #    return done() unless token?
+  #    wxt.loadJsapiTicket token.access_token, (err, data) ->
+  #      console.log err if err?
+  #      console.dir data
+  #      done()
 
   describe "material", ->
-    #token =
-    #  access_token: "9SXQSIztoloEJef_dwq9M4pJyP7oFLzfEHjflADLf2GlBKSvfyCxRX5B5pNlUT3902mNC9AUwTDCKelaCBOFQ_N-Rnofl7sOZaE_Skxz-hU"
-    #  ticket: "9SXQSIztoloEJef_dwq9M4pJyP7oFLzfEHjflADLf2GlBKSvfyCxRX5B5pNlUT3902mNC9AUwTDCKelaCBOFQ_N-Rnofl7sOZaE_Skxz-hU"
+    token =
+      access_token: "BvCgnDN_lzBtr0Spm-stnJYS0CPaYVBjECkREYFOnZHCjK6PgnK8NwX6mK2Ic5jGp2z8XnDyAQcy3ADSHU81oM_dj0lOSChONscON2pADSw"
+      ticket: "sM4AOVdWfPE4DxkXGEs8VFXzXlm0blQsLfNUpWD-79yUTCUtJS03SH4eyqbLymEuaHneFWVZhjC59Clc4Hn2XA"
     it "add voice material", (done) ->
       filename = "/Users/user/Downloads/2dLwJrA.mp3"
       wxt.uploadMedia token.access_token, 'voice', filename, (err, data) ->

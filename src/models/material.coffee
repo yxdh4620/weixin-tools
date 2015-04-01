@@ -183,9 +183,14 @@ uploadMedia = (access_token, type, filepath, callback) ->
   url = "#{RequestUrls.MEDIA_UPLOAD_URL}?access_token=#{access_token}&type=#{type}"
   child_process.exec "curl -F media=@#{filepath} \"#{url}\"", (err, stdout, stderr) ->
     return callback err if err?
-    console.log stderr
-    console.log stdout
-    return callback null, stdout.toString()
+    try
+      body = JSON.parse(stdout)
+      return callback new Error("invalid body") unless body?
+      return callback new Error("#{body.errcode}:#{body.errmsg}") unless not body.errcode? or (body.errcode == 0 and body.errmsg == 'ok')
+      callback null, body
+      return
+    catch err
+      return callback new Error("invalid body")
 
 module.exports =
   loadMaterialList:loadMaterialList
