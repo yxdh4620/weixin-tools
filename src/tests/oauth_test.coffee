@@ -17,7 +17,7 @@ options =
 
 wxt = new WeixinTools(options)
 console.dir wxt
-openid = ""
+openid = "o-5Zdt8pmmpmYqXbTbDUpXwx_kOk"
 token = null
 
 describe "test weixin_tools", ->
