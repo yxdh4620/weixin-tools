@@ -90,6 +90,20 @@ loadUserInfo = (openid, authorze_token, lang='zh_CN', callback) ->
     #return callback new Error("get access_token is null") unless body.access_token?
     return callback null, body
 
+loadUserInfoUnion = (openid, access_token, lang='zh_CN', callback) ->
+  url = "#{RequestUrls.GET_USER_INFO_UNIONID_URL}?access_token=#{access_token}&openid=#{openid}&lang=#{lang}"
+  console.log "loadUserInfo:: url:: #{url}"
+  options =
+    url: url
+    method: "GET"
+    json: true
+  request options, (err, res, body)->
+    console.dir body
+    return callback err if err?
+    return callback new Error("result data is error") if _.isEmpty(body)
+    return callback new Error("errCode#{body.errcode} #{body.errmsg}") if body.errcode? and parseInt(body.errcode) != 0
+    return callback null, body
+
 module.exports =
   generateAuthorizeURL: generateAuthorizeURL
   loadAuthorzeToken:loadAuthorzeToken
