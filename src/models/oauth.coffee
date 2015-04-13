@@ -109,5 +109,5 @@ module.exports =
   loadAuthorzeToken:loadAuthorzeToken
   refreshAuthorzeToken:refreshAuthorzeToken
   loadUserInfo:loadUserInfo
-
+  loadUserInfoUnion:loadUserInfoUnion
 
