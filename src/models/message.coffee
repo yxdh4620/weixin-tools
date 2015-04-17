@@ -110,6 +110,24 @@ replyVideoMessage = (openid, media_id, title, description) ->
   reply = _.template(autoReplyTemplate.VIDEO_TP||"")(options)
   return reply
 
+#回复图文消息
+replyNewsMessage = (openid, items, title, description, picurl, url) ->
+  articleCount = items.length
+  itemStr = ""
+  for item in items
+    itemStr = _.template(autoReplyTemplate.NEWS_ITEM_TP||"")(item)
+  options =
+    toUser: openid
+    fromUser: @originalID
+    timestamp: @generateTimestamp()
+    title:title||""
+    description:description||""
+    picurl:picurl||""
+    url:url||""
+    articleCount:articleCount
+    items:itemStr
+  reply = _.template(autoReplyTemplate.NEWS_TP||"")(options)
+  return reply
 
 module.exports =
   sendTemplateMessage:sendTemplateMessage
@@ -118,6 +136,6 @@ module.exports =
   replyImageMessage:replyImageMessage
   replyVideoMessage:replyVideoMessage
   replyVoiceMessage:replyVoiceMessage
-
+  replyNewsMessage:replyNewsMessage
 
 

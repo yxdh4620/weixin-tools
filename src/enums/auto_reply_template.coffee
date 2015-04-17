@@ -7,6 +7,7 @@ REPLY_TYPE =
   image:"image"
   voice:"voice"
   video:"video"
+  news:"news"
 
 TEXT_TP = """
   <xml>
@@ -72,29 +73,27 @@ VIDEO_TP = """
 #  </xml>
 #"""
 #
-#NEWS_TP = """
-#  <xml>
-#    <ToUserName><![CDATA[toUser]]></ToUserName>
-#    <FromUserName><![CDATA[fromUser]]></FromUserName>
-#    <CreateTime>12345678</CreateTime>
-#    <MsgType><![CDATA[news]]></MsgType>
-#    <ArticleCount>2</ArticleCount>
-#    <Articles>
-#      <item>
-#        <Title><![CDATA[title1]]></Title>
-#        <Description><![CDATA[description1]]></Description>
-#        <PicUrl><![CDATA[picurl]]></PicUrl>
-#        <Url><![CDATA[url]]></Url>
-#      </item>
-#      <item>
-#        <Title><![CDATA[title]]></Title>
-#        <Description><![CDATA[description]]></Description>
-#        <PicUrl><![CDATA[picurl]]></PicUrl>
-#        <Url><![CDATA[url]]></Url>
-#      </item>
-#    </Articles>
-#  </xml>
-#"""
+NEWS_TP = """
+  <xml>
+    <ToUserName><%=toUser%></ToUserName>
+    <FromUserName><%=fromUser%></FromUserName>
+    <CreateTime><%=timestamp%></CreateTime>
+    <MsgType>news</MsgType>
+    <ArticleCount><%=articleCount%></ArticleCount>
+    <Articles>
+      <%=items%>
+    </Articles>
+  </xml>
+"""
+
+NEWS_ITEM_TP = """
+  <item>
+    <Title><%=title%></Title>
+    <Description><%=description%></Description>
+    <PicUrl><%=picurl%></PicUrl>
+    <Url><%=url%>></Url>
+  </item>
+"""
 
 module.exports =
   REPLY_TYPE:REPLY_TYPE
@@ -102,4 +101,5 @@ module.exports =
   IMAGE_TP:IMAGE_TP
   VOICE_TP:VOICE_TP
   VIDEO_TP:VIDEO_TP
-
+  NEWS_TP:NEWS_TP
+  NEWS_ITEM_TP:NEWS_ITEM_TP
