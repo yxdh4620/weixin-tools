@@ -52,7 +52,6 @@ loadAuthorzeToken = (code, callback) ->
     method: "GET"
     json: true
   request options, (err, res, body)->
-    console.dir body
     return callback err if err?
     return callback new Error("result data is error") if _.isEmpty(body)
     return callback new Error("errCode#{body.errcode} #{body.errmsg}") if body.errcode? and parseInt(body.errcode) != 0
