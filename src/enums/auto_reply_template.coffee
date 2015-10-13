@@ -91,7 +91,7 @@ NEWS_ITEM_TP = """
     <Title><%=title%></Title>
     <Description><%=description%></Description>
     <PicUrl><%=picurl%></PicUrl>
-    <Url><%=url%>></Url>
+    <Url><%=url%></Url>
   </item>
 """
 
