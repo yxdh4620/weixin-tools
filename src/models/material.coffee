@@ -67,12 +67,6 @@ getMaterialById = (access_token, id, callback) ->
   return
 
 
-##TODO 新增图文素材
-#addGraphicMaterial = (access_token, articles, callback) ->
-#  assert _.isFunction(callback), "missing callback"
-#  callback null, null
-#  return
-
 ## 新增视频素材
 #addVideoMaterial = (access_token, file, description, callback) ->
 #  assert _.isFunction(callback), "missing callback"
@@ -109,77 +103,97 @@ getMaterialById = (access_token, id, callback) ->
 #    return
 #  return
 
-#增加临时素材(有效时间3天)
-uploadMedia = (access_token, type, filepath, callback) ->
+addMaterial = (access_token, type, filepath, callback) ->
   assert _.isFunction(callback), "missing callback"
-  url = "#{RequestUrls.MEDIA_UPLOAD_URL}?access_token=#{access_token}&type=#{type}"
-#  formData =
-#    media: fs.createReadStream(filepath)
-#  options =
-#    url:url
-#    json: true
-#    media:filepath
-#    formData:formData
-#  console.dir options
-#  request.post options, (err, response, body)->
-#    console.dir body
-#    return callback err if err?
-#    return callback new Error("invalid body") unless body?
-#    return callback new Error("#{body.errcode}:#{body.errmsg}") unless not body.errcode? or (body.errcode == 0 and body.errmsg == 'ok')
-#    callback null, body
-#    return
-#  return
-# req = request.post url, (err, res, body) ->
-#    return callback err if err?
-#    unless res.statusCode is 200
-#      return callback new Error("statusCode:#{res.statusCode}")
-#    #console.dir body
-#    console.dir body
-#    return callback err if err?
-#    return callback new Error("invalid body") unless body?
-#    return callback new Error("#{body.errcode}:#{body.errmsg}") unless not body.errcode? or (body.errcode == 0 and body.errmsg == 'ok')
-#    callback null, body
-#    return
-#  form = req.form()
-#  form.append("media", filepath)
-#  console.dir form
-#  console.dir req
-  #res = request.post url, (err, httpResponse, body) ->
+  url = "#{RequestUrls.MATERIAL_ADD_MATERIAL_URL}?access_token=#{access_token}&type=#{type}"
+  cmd = "curl -F media=@#{filepath} \"#{url}\""
+  child_process.exec cmd, (err, stdout, stderr) ->
+    return callback err if err?
+    try
+      body = JSON.parse(stdout)
+      return callback new Error("invalid body") unless body?
+      return callback new Error("#{body.errcode}:#{body.errmsg}") unless not body.errcode? or (body.errcode == 0 and body.errmsg == 'ok')
+      callback null, body
+      return
+    catch err
+      return callback new Error("invalid body")
+    return
+  return
+  #request.post options, (err, response, body) ->
   #  console.dir body
   #  return callback err if err?
   #  return callback new Error("invalid body") unless body?
   #  return callback new Error("#{body.errcode}:#{body.errmsg}") unless not body.errcode? or (body.errcode == 0 and body.errmsg == 'ok')
   #  callback null, body
   #  return
-  #form = res.form()
-  #console.dir form
-  #form.append('media', fs.createReadStream(file))
-  ##form.append('media', file)
   #return
-  #fs.stat filepath, (err, stat) ->
-  #  return callback(err) if err?
-  #  form = formstream()
-  #  form.file('media', filepath, path.basename(filepath), stat.size)
-  #  url = "#{RequestUrls.MEDIA_UPLOAD_URL}?access_token=#{access_token}&type=#{type}"
-  #  options =
-  #    url:url
-  #    dataType: 'json'
-  #    type: 'POST'
-  #    timeout: 60000, #60秒超时
-  #    headers: form.headers()
-  #    stream: form
-  #  console.dir options
-  #  request options, (err, response, body) ->
-  #    console.dir body
-  #    return callback err if err?
-  #    return callback new Error("invalid body") unless body?
-  #    return callback new Error("#{body.errcode}:#{body.errmsg}") unless not body.errcode? or (body.errcode == 0 and body.errmsg == 'ok')
-  #    callback null, body
-  #    return
-  #  return
-  #return
-  #'{"type":"voice","media_id":"6XjopZhcAFKvWVk_0h56hX786JRBr9kzBGFleWsra5Q1r--Y04wegsb-POF43d-D","created_at":1427800830}'
-  #'{"errcode":40004,"errmsg":"invalid media type"}'
+
+# 增加图片永久素材
+addImageMaterial = (access_token, file, callback) ->
+  assert _.isFunction(callback), "missing callback"
+  addMaterial access_token, 'image', file, callback
+  return
+
+# 增加图文永久素材
+addNewsMaterial = (access_token, news, callback) ->
+  assert _.isFunction(callback), "missing callback"
+  url = "#{RequestUrls.MATERIAL_ADD_NEW_URL}?access_token=#{access_token}"
+  options =
+    url: url
+    json: true
+    body:
+      articles: news
+  request.post options, (err, response, body) ->
+    console.dir body
+    return callback err if err?
+    return callback new Error("invalid body") unless body?
+    return callback new Error("#{body.errcode}:#{body.errmsg}") unless not body.errcode? or (body.errcode == 0 and body.errmsg == 'ok')
+    callback null, body
+    return
+  return
+
+updateNewsMaterial = (access_token, news, media_id, index, callback) ->
+  if _.isFunction(index)
+    callback = index
+    index = 0
+  assert _.isFunction(callback), "missing callback"
+  url = "#{RequestUrls.MATERIAL_UPDATE_NEWS_URL}?access_token=#{access_token}"
+  options =
+    url: url
+    json: true
+    body:
+      media_id: media_id
+      index: index
+      articles: news
+  request.post options, (err, response, body) ->
+    console.dir body
+    return callback err if err?
+    return callback new Error("invalid body") unless body?
+    return callback new Error("#{body.errcode}:#{body.errmsg}") unless not body.errcode? or (body.errcode == 0 and body.errmsg == 'ok')
+    callback null, body
+    return
+  return
+
+deleteMaterial = (access_token, media_id, callback) ->
+  assert _.isFunction(callback), "missing callback"
+  url = "#{RequestUrls.MATERIAL_DELETE_URL}?access_token=#{access_token}"
+  options =
+    url: url
+    json: true
+    body:
+      media_id: media_id
+  request.post options, (err, response, body) ->
+    console.dir body
+    return callback err if err?
+    return callback new Error("invalid body") unless body?
+    return callback new Error("#{body.errcode}:#{body.errmsg}") unless not body.errcode? or (body.errcode == 0 and body.errmsg == 'ok')
+    callback null, body
+    return
+  return
+
+#增加临时素材(有效时间3天)
+uploadMedia = (access_token, type, filepath, callback) ->
+  assert _.isFunction(callback), "missing callback"
   url = "#{RequestUrls.MEDIA_UPLOAD_URL}?access_token=#{access_token}&type=#{type}"
   child_process.exec "curl -F media=@#{filepath} \"#{url}\"", (err, stdout, stderr) ->
     return callback err if err?
@@ -196,5 +210,10 @@ module.exports =
   loadMaterialList:loadMaterialList
   loadMaterialCount:loadMaterialCount
   getMaterialById:getMaterialById
+  addMaterial: addMaterial
+  addImageMaterial: addImageMaterial
+  addNewsMaterial: addNewsMaterial
+  updateNewsMaterial: updateNewsMaterial
+  deleteMaterial: deleteMaterial
   uploadMedia:uploadMedia
 
