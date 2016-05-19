@@ -115,7 +115,7 @@ replyNewsMessage = (openid, items, title, description, picurl, url) ->
   articleCount = items.length
   itemStr = ""
   for item in items
-    itemStr = _.template(autoReplyTemplate.NEWS_ITEM_TP||"")(item)
+    itemStr += _.template(autoReplyTemplate.NEWS_ITEM_TP||"")(item)
   options =
     toUser: openid
     fromUser: @originalID

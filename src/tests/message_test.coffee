@@ -36,6 +36,7 @@ subscribeXML = """
 """
 
 
+
 describe "test weixin_tools", ->
   before () ->
     # before test happen
@@ -55,10 +56,10 @@ describe "test weixin_tools", ->
   #      console.dir data
   #      done()
 
-  describe "message", ->
-    token =
-      access_token: "nfbIHl9p_TyQFJ6KQvF3YTrjIG1QjB14KhoRlmQ8fjCwfHHjDV7uJWL7KB3PZR4dW95QBupypwNP_tCGuuX8oEdxVNyiuxd-whpJZ2hN_dE"
-      ticket: "sM4AOVdWfPE4DxkXGEs8VFj5UEhJXZMbuiU3wOuFKqHuT5pm3O9Y1kLceFR_XIIdtcVN9YNpVpDvUBUq7nSLkA"
+  #describe "message", ->
+  #  token =
+  #    access_token: "nfbIHl9p_TyQFJ6KQvF3YTrjIG1QjB14KhoRlmQ8fjCwfHHjDV7uJWL7KB3PZR4dW95QBupypwNP_tCGuuX8oEdxVNyiuxd-whpJZ2hN_dE"
+  #    ticket: "sM4AOVdWfPE4DxkXGEs8VFj5UEhJXZMbuiU3wOuFKqHuT5pm3O9Y1kLceFR_XIIdtcVN9YNpVpDvUBUq7nSLkA"
 
   #  messages =
   #    "touser":"o-5Zdt8pmmpmYqXbTbDUpXwx_kOk"
@@ -85,15 +86,23 @@ describe "test weixin_tools", ->
   #      console.dir body
   #      done()
 
-    it "send auto message", (done) ->
-      subscribeXML = """
-      <xml><URL><![CDATA[http://mintr-dev.gamagama.cn/weixin/wechat]]></URL><ToUserName><![CDATA[wxe143a2b06d92c16b]]></ToUserName><FromUserName><![CDATA[o-5Zdt8pmmpmYqXbTbDUpXwx_kOk]]></FromUserName><CreateTime>1427706395</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[asdfasf]]></Content><MsgId>1</MsgId></xml>
-      """
+  #  it "send auto message", (done) ->
+  #    subscribeXML = """
+  #    <xml><URL><![CDATA[http://mintr-dev.gamagama.cn/weixin/wechat]]></URL><ToUserName><![CDATA[wxe143a2b06d92c16b]]></ToUserName><FromUserName><![CDATA[o-5Zdt8pmmpmYqXbTbDUpXwx_kOk]]></FromUserName><CreateTime>1427706395</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[asdfasf]]></Content><MsgId>1</MsgId></xml>
+  #    """
 
-      wxt.receiveMessage subscribeXML, (err, data)->
-        console.error err if err?
-        console.dir data
-        result = wxt.autoReplyMessage(data.FromUserName, data.MsgType, data.Content||data.MediaId)
-        console.log result
-        done()
+  #    wxt.receiveMessage subscribeXML, (err, data)->
+  #      console.error err if err?
+  #      console.dir data
+  #      result = wxt.autoReplyMessage(data.FromUserName, data.MsgType, data.Content||data.MediaId)
+  #      console.log result
+  #      done()
+
+  #describe 'replyNewsMessage', ->
+  #  it "reply new message",(done)->
+  #    reply = wxt.replyNewsMessage 'aaaaaaaaaaa', message.items, message.title, message.description, message.picurl, message.url
+  #    console.dir reply
+  #    done()
+
+
 
