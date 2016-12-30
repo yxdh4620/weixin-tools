@@ -34,4 +34,7 @@ module.exports =
 
   MEDIA_UPLOAD_URL : "https://api.weixin.qq.com/cgi-bin/media/upload"
 
+  # 生成带参数的二维码
+  QRCODE_CREATE_URL : "https://api.weixin.qq.com/cgi-bin/qrcode/create"
+
 

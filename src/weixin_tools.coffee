@@ -50,6 +50,8 @@ class WeixinTools
     @mixin(require("./models/receive"))
     # 素材管理模块
     @mixin(require("./models/material"))
+    # 二维码模块（生成）
+    @mixin(require("./models/qrcode"))
     return
 
   mixin: (obj) ->
@@ -86,6 +88,9 @@ class WeixinTools
       signature: sign
       jsApiList: @jsApiList || []
     return result
+
+  QRCODE_ACTION_NAME : require('./enums/qrcode_action_name')
+
 
   ############################ 支付相关 start ##########################################
   makePaySignature : (args) ->

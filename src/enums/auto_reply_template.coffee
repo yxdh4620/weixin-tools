@@ -103,3 +103,4 @@ module.exports =
   VIDEO_TP:VIDEO_TP
   NEWS_TP:NEWS_TP
   NEWS_ITEM_TP:NEWS_ITEM_TP
+
