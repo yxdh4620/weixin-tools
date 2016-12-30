@@ -2,7 +2,7 @@
 # 用于获得 access_token, jsapi_ticket 的工具
 # 这里只负责从微信接口取，不负责本地的缓存
 ###
-debuglog = require("debug")("utils::token")
+debuglog = require("debug")("weixin-tools::token")
 assert = require "assert"
 request = require 'request'
 _ = require 'underscore'

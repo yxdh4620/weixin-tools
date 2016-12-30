@@ -4,7 +4,7 @@
 # auther YuanXiangDong
 ###
 
-debuglog = require("debug")("weixin_tools")
+debuglog = require("debug")("weixin_tools::pay")
 assert = require "assert"
 _ = require 'underscore'
 crypto = require 'crypto'

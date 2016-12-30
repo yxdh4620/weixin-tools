@@ -1,7 +1,7 @@
 ###
 # 微信的签名算法工具
 ###
-debuglog = require("debug")("utils::signature")
+debuglog = require("debug")("weixin-tools::signature")
 crypto = require 'crypto'
 request = require 'request'
 _ = require 'underscore'

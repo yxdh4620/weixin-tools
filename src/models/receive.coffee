@@ -2,7 +2,7 @@
 # 微信接收消息（事件）的接口, 并做相关处理
 ###
 
-debuglog = require("debug")("weixin_tools")
+debuglog = require("debug")("weixin_tools::receive")
 _ = require 'underscore'
 assert = require "assert"
 request = require 'request'

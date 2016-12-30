@@ -2,7 +2,7 @@
 # 微信自定义菜单的接口工具类
 ###
 
-debuglog = require("debug")("weixin_tools")
+debuglog = require("debug")("weixin_tools::menus")
 assert = require "assert"
 request = require 'request'
 

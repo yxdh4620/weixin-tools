@@ -1,7 +1,7 @@
 ###
 # 微信的oauth 登录方式实现工具
 ###
-debuglog = require("debug")("utils::oauth")
+debuglog = require("debug")("weixin-tools::qrcode")
 assert = require "assert"
 request = require 'request'
 _ = require 'underscore'

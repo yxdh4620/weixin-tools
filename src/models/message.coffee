@@ -2,7 +2,7 @@
 # 微信发送消息的接口
 ###
 
-debuglog = require("debug")("weixin_tools")
+debuglog = require("debug")("weixin_tools::message")
 _ = require 'underscore'
 assert = require "assert"
 request = require 'request'
