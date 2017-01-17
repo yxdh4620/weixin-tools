@@ -1,5 +1,6 @@
 debuglog = require("debug")("weixin_tools")
 assert = require "assert"
+_ = require 'underscore'
 
 ###
 # 微信的工具类
@@ -22,6 +23,17 @@ class WeixinTools
     @payOptions.passphrase = @payOptions.passphrase || @payOptions.mchId
 
     @originalID = options.originalID
+
+    @sslCert = options.sslCert
+    @sslKey = options.sslKey
+    @sslCa = options.sslCa
+    @sslPfx = options.sslPfx
+    @agentOptions =
+      cert: @sslCert
+      key: @sslKey
+      ca: @sslCa
+
+
     #@payOptions.mchId = options.mchId
     #@payOptions.partnerKey = options.partnerKey
     #@payOptions.subMchId = options.subMchId
@@ -52,6 +64,8 @@ class WeixinTools
     @mixin(require("./models/material"))
     # 二维码模块（生成）
     @mixin(require("./models/qrcode"))
+    # 企业付款功能接口
+    @mixin(require("./models/promotion"))
     return
 
   mixin: (obj) ->
@@ -91,6 +105,7 @@ class WeixinTools
 
   QRCODE_ACTION_NAME : require('./enums/qrcode_action_name')
 
+  PROMOTION_CHECK_NAME : require './enums/promotion_check_name'
 
   ############################ 支付相关 start ##########################################
   makePaySignature : (args) ->

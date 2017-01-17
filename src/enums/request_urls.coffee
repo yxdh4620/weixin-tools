@@ -37,4 +37,6 @@ module.exports =
   # 生成带参数的二维码
   QRCODE_CREATE_URL : "https://api.weixin.qq.com/cgi-bin/qrcode/create"
 
+  # 企业付款功能接口
+  PROMOTION_TRANSFERS_URL : "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers"
 
