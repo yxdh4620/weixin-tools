@@ -46,14 +46,13 @@ promotion = (args, callback) ->
 # 验证返回的xml数据，并转为JSON 数据
 promotionValidate = (xml, callback) ->
   helps.xml2json xml, (err, data) =>
-    console.dir data
-    console.log "mch_id:#{@payOptions.mchId} appId:#{@appid} sign:#{@makePaySignature(data)} "
+    debuglog "mch_id:#{@payOptions.mchId} appId:#{@appid} ", data
     return callback err if err?
     return callback new Error("result data is error") if _.isEmpty(data)
-    return callback new Error("errCode: #{data.return_code} message: #{data.return_msg}") unless data.return_code? and data.return_code == 'SUCCESS'
-    return callback new Error("errCode: #{data.err_code} message: #{data.err_code_des}") unless data.result_code? and data.result_code == 'SUCCESS'
-    return callback new Error("Invalid appId") unless data.mch_appid? and data.mch_appid == @appid
-    return callback new Error("Invalid mch_id") unless data.mchid? and data.mchid == @payOptions.mchId
+    return callback new Error("errCode: #{data.return_code} message: #{data.return_msg}"), data unless data.return_code? and data.return_code == 'SUCCESS'
+    return callback new Error("errCode: #{data.err_code} message: #{data.err_code_des}"), data  unless data.result_code? and data.result_code == 'SUCCESS'
+    return callback new Error("Invalid appId"), data unless data.mch_appid? and data.mch_appid == @appid
+    return callback new Error("Invalid mch_id"), data unless data.mchid? and data.mchid == @payOptions.mchId
     return callback null, data
 
 module.exports =
