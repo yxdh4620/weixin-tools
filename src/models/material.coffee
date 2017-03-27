@@ -213,35 +213,43 @@ uploadMedia = (access_token, type, filepath, callback) ->
 getMediaById = (access_token, media_id, callback) ->
   assert _.isFunction(callback), "missing callback"
   url = "#{RequestUrls.MEDIA_GET_BY_ID_URL}?access_token=#{access_token}&media_id=#{media_id}"
-  request.get url, (err, response, body) ->
-    return callback err if err?
-    if response.headers['content-type'] == 'text/plain'
-      try
-        body = JSON.parse(body)
-        console.dir body
-        return callback new Error("#{body.errcode}:#{body.errmsg}")
-      catch error
-        return callback new Error(error)
-      return
 
-    return callback null, body
-  #return callback null, response.headers, body
-  #  if dest?
-  #    stream = if (typeof desc == 'string') then fs.createWriteStream(dest) else dest
-  #    response.pipe(stream)
-  #    stream.on 'finish', () ->
-  #      callback null, body
-  #    stream.on 'error', (error) ->
-  #      callback error
-  #    return
-  #  else
-  #    console.log "aaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-  #    chunks = []
-  #    response.on 'data', (buf) ->
-  #      console.dir chunks
-  #      chunks.push buf
-  #    response.on 'end', (err) ->
-  #      return callback null, new Buffer(chunks.join(''))
+  #child_process.exec "curl --help -G \"#{url}\"", (err, stdout, stderr) ->
+  #child_process.exec "curl --help ", (err, stdout, stderr) ->
+  #  return callback err if err?
+  #  console.dir stdout
+  #  return callback null, stdout
+  #return
+  options =
+    method: 'GET'
+    url: url
+  #  headers:
+  #    "Content-type": "image/jpeg"
+  buf = []
+  headers = null
+  request(options, (err, response, body) ->
+    return callback err if err?
+    headers = response.headers
+  ).on('response', (res)->
+    res.on 'data', (data) ->
+      buf.push data
+    res.on 'end', () ->
+      console.dir res.headers
+      if res.headers['content-type'].indexOf('text/plain') >= 0 or res.headers['content-type'].indexOf('application/json') >= 0
+        try
+          body = JSON.parse(Buffer.concat(buf).toString())
+          return callback new Error("#{body.errcode}:#{body.errmsg}")
+        catch error
+          return callback new Error(error)
+        return
+      callback null,  Buffer.concat(buf)
+  )
+  #.on('data', (data) ->
+  #  buf.push data
+  #).on 'end', () ->
+  #  console.log "aaaaa"
+  #  console.dir Buffer.concat(buf).toString()
+  #  callback null, Buffer.concat(buf)
   return
 
 module.exports =

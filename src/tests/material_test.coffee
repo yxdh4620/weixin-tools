@@ -4,6 +4,7 @@ p = require "commander"
 env = p.environment || 'development'
 _ = require 'underscore'
 config = require('../config/config')[env]
+fs = require 'fs'
 
 menus = config.menus
 
@@ -34,9 +35,10 @@ token = null
 news_material_id = null
 
 token =
-  access_token: '_HT1605urKpeEKcpLrqTVIen5wusIMufhzekICdnFrDZt82lcqn6TgAA62UCx1TeEHC_aDJBRPdGs-twwgQHAJFFbkjTDuaaktMVG5L0ncvOYHAwscGciWZqepLoJMJrEHKbAHAYBE'
+  access_token: '4JcGgbQsdMVLJU4WGf1P1dGi7sqYKqOxxjcPcOpxPCDUJpgA56eSEy74aJEQ0fd6w-0PY3RrHjJDaF-zzWJ-8zTwD20vUt-ZqRWYWOTTgApuULb-YAxtrFAq1iN2JAhUPLQiAAALHM'
   expires_in: 7200
 
+filepath = "/Users/yuanxiangdong/workspaces/my-tools/weixin-tools/tests/test.jpg"
 
 describe "test weixin_tools", ->
   before () ->
@@ -62,17 +64,23 @@ describe "test weixin_tools", ->
       #filename = "/Users/user/Downloads/05AtKBTyih_im1oj2sw_myImage.png"
       filename = "/Users/yuanxiangdong/Downloads/83ccaf5d5a3e26eb7ef87eafa6995473.jpg"
       wxt.uploadMedia token.access_token, 'image', filename, (err, data) ->
-        console.log err if err?
+        if err?
+          console.log err
+          return done()
         console.dir data
         media = data.media_id
         done()
 
     it "get image material", (done) ->
       wxt.getMediaById token.access_token, media, (err, body) ->
-        console.log err if err?
+        if err?
+          console.log "dddd: #{err}"
+          return done()
+        console.dir body
         #filename = headers['content-disposition'].match(/filename=\"([^]*)\"/)
         #console.dir filename[1]
-        console.dir body
+        #body = new Buffer(body, 'base64')
+        fs.writeFileSync(filepath, body)
         done()
 
 
