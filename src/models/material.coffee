@@ -199,12 +199,50 @@ uploadMedia = (access_token, type, filepath, callback) ->
     return callback err if err?
     try
       body = JSON.parse(stdout)
+      console.dir body
       return callback new Error("invalid body") unless body?
       return callback new Error("#{body.errcode}:#{body.errmsg}") unless not body.errcode? or (body.errcode == 0 and body.errmsg == 'ok')
       callback null, body
       return
     catch err
+      console.dir err
       return callback new Error("invalid body")
+    return
+  return
+
+getMediaById = (access_token, media_id, callback) ->
+  assert _.isFunction(callback), "missing callback"
+  url = "#{RequestUrls.MEDIA_GET_BY_ID_URL}?access_token=#{access_token}&media_id=#{media_id}"
+  request.get url, (err, response, body) ->
+    return callback err if err?
+    if response.headers['content-type'] == 'text/plain'
+      try
+        body = JSON.parse(body)
+        console.dir body
+        return callback new Error("#{body.errcode}:#{body.errmsg}")
+      catch error
+        return callback new Error(error)
+      return
+
+    return callback null, body
+  #return callback null, response.headers, body
+  #  if dest?
+  #    stream = if (typeof desc == 'string') then fs.createWriteStream(dest) else dest
+  #    response.pipe(stream)
+  #    stream.on 'finish', () ->
+  #      callback null, body
+  #    stream.on 'error', (error) ->
+  #      callback error
+  #    return
+  #  else
+  #    console.log "aaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  #    chunks = []
+  #    response.on 'data', (buf) ->
+  #      console.dir chunks
+  #      chunks.push buf
+  #    response.on 'end', (err) ->
+  #      return callback null, new Buffer(chunks.join(''))
+  return
 
 module.exports =
   loadMaterialList:loadMaterialList
@@ -216,4 +254,6 @@ module.exports =
   updateNewsMaterial: updateNewsMaterial
   deleteMaterial: deleteMaterial
   uploadMedia:uploadMedia
+  getMediaById: getMediaById
+
 

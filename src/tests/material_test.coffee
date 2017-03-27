@@ -34,7 +34,7 @@ token = null
 news_material_id = null
 
 token =
-  access_token: 'y79VO8AyiRJzM3yqTVHTexgEoaX_Z91C5_EX_qTc0JqH7BxLj7ibMAAJmTnCFuzRUQuJAZVF958HlSPZiJQMFaxlREE_TB6PGDWOlI5PkqhzaigyZPLSaEs3LtSfzv4rNINeAGAWRW'
+  access_token: '_HT1605urKpeEKcpLrqTVIen5wusIMufhzekICdnFrDZt82lcqn6TgAA62UCx1TeEHC_aDJBRPdGs-twwgQHAJFFbkjTDuaaktMVG5L0ncvOYHAwscGciWZqepLoJMJrEHKbAHAYBE'
   expires_in: 7200
 
 
@@ -58,12 +58,23 @@ describe "test weixin_tools", ->
   #      done()
 
   describe "material", ->
-    #it "add voice material", (done) ->
-    #  filename = "/Users/user/Downloads/05AtKBTyih_im1oj2sw_myImage.png"
-    #  wxt.uploadMedia token.access_token, 'voice', filename, (err, data) ->
-    #    console.log err if err?
-    #    console.dir data
-    #    done()
+    it "add voice material", (done) ->
+      #filename = "/Users/user/Downloads/05AtKBTyih_im1oj2sw_myImage.png"
+      filename = "/Users/yuanxiangdong/Downloads/83ccaf5d5a3e26eb7ef87eafa6995473.jpg"
+      wxt.uploadMedia token.access_token, 'image', filename, (err, data) ->
+        console.log err if err?
+        console.dir data
+        media = data.media_id
+        done()
+
+    it "get image material", (done) ->
+      wxt.getMediaById token.access_token, media, (err, body) ->
+        console.log err if err?
+        #filename = headers['content-disposition'].match(/filename=\"([^]*)\"/)
+        #console.dir filename[1]
+        console.dir body
+        done()
+
 
     #it "load material count", (done) ->
     #  wxt.loadMaterialCount token.access_token, (err, data) ->
@@ -85,49 +96,49 @@ describe "test weixin_tools", ->
     ##  media_id: 'VXXwGi7THPUdu5zdHXKlaGmdHAGxEmqSj_Vx_O9r0PU',
     ##  url: 'https://mmbiz.qlogo.cn/mmbiz/jLPa62esCw1PUBJZciaX0PicKIFx1Oia7jqRoGqpDQS8tBQMQLJSEegCWLOFHIuQlPUqFhmYeRvcKHGRNywibjna5w/0?wx_fmt=png'
     ##}
-    it "add image material", (done) ->
-      filename = "/Users/user/Downloads/05AtKBTyih_im1oj2sw_myImage.png"
-      wxt.addImageMaterial token.access_token, filename, (err, data) ->
-        console.log err if err?
-        console.dir data
-        media = data
-        done()
+    #it "add image material", (done) ->
+    #  filename = "/Users/user/Downloads/05AtKBTyih_im1oj2sw_myImage.png"
+    #  wxt.addImageMaterial token.access_token, filename, (err, data) ->
+    #    console.log err if err?
+    #    console.dir data
+    #    media = data
+    #    done()
 
-    #{ media_id: 'VXXwGi7THPUdu5zdHXKlaETN-tokQvvSOmLtzdPEOaY' }
-    it "add news material", (done) ->
-      news = [
-        {
-          title: "test"
-          thumb_media_id: media.media_id
-          author: 'GamaLabs'
-          digest: '只是一个简单的测试'
-          show_cover_pic: 1
-          content:"""
-              拯救世界一个测试上传的数据<br/>
-              <img class="rich_media_thumb" id="js_cover" onerror="this.parentNode.removeChild(this)"
-              data-backsrc="#{media.url}" data-s="300,640" src="#{media.url}">
-            """
-          content_source_url:""
-        },
-        {
-          title: "test2"
-          thumb_media_id: media.media_id
-          author: 'GamaLabs'
-          digest: '只是一个简单的测试2'
-          show_cover_pic: 1
-          content:"""
-              拯救世界一个测试上传的数据2<br/>
-              <img class="rich_media_thumb" id="js_cover" onerror="this.parentNode.removeChild(this)"
-              data-backsrc="#{media.url}" data-s="300,640" src="#{media.url}">
-            """
-          content_source_url:""
-        }
-      ]
-      wxt.addNewsMaterial token.access_token, news, (err, data) ->
-        console.log err if err?
-        console.dir data
-        news_material_id = data.media_id
-        done()
+    ##{ media_id: 'VXXwGi7THPUdu5zdHXKlaETN-tokQvvSOmLtzdPEOaY' }
+    #it "add news material", (done) ->
+    #  news = [
+    #    {
+    #      title: "test"
+    #      thumb_media_id: media.media_id
+    #      author: 'GamaLabs'
+    #      digest: '只是一个简单的测试'
+    #      show_cover_pic: 1
+    #      content:"""
+    #          拯救世界一个测试上传的数据<br/>
+    #          <img class="rich_media_thumb" id="js_cover" onerror="this.parentNode.removeChild(this)"
+    #          data-backsrc="#{media.url}" data-s="300,640" src="#{media.url}">
+    #        """
+    #      content_source_url:""
+    #    },
+    #    {
+    #      title: "test2"
+    #      thumb_media_id: media.media_id
+    #      author: 'GamaLabs'
+    #      digest: '只是一个简单的测试2'
+    #      show_cover_pic: 1
+    #      content:"""
+    #          拯救世界一个测试上传的数据2<br/>
+    #          <img class="rich_media_thumb" id="js_cover" onerror="this.parentNode.removeChild(this)"
+    #          data-backsrc="#{media.url}" data-s="300,640" src="#{media.url}">
+    #        """
+    #      content_source_url:""
+    #    }
+    #  ]
+    #  wxt.addNewsMaterial token.access_token, news, (err, data) ->
+    #    console.log err if err?
+    #    console.dir data
+    #    news_material_id = data.media_id
+    #    done()
 
     #it "update new material ", (done) ->
     #  news =
@@ -171,10 +182,10 @@ describe "test weixin_tools", ->
     #    console.dir data
     #    done()
 
-    it "delete material", (done) ->
-      news_material_id = 'VXXwGi7THPUdu5zdHXKlaHmbf-rz15UweMgvmNX1y64'
-      wxt.deleteMaterial token.access_token, news_material_id, (err, data) ->
-        console.log err if err?
-        console.dir data
-        done()
+    #it "delete material", (done) ->
+    #  news_material_id = 'VXXwGi7THPUdu5zdHXKlaHmbf-rz15UweMgvmNX1y64'
+    #  wxt.deleteMaterial token.access_token, news_material_id, (err, data) ->
+    #    console.log err if err?
+    #    console.dir data
+    #    done()
 

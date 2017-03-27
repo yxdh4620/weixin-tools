@@ -33,6 +33,7 @@ module.exports =
   MATERIAL_UPDATE_NEWS_URL: "https://api.weixin.qq.com/cgi-bin/material/update_news"
 
   MEDIA_UPLOAD_URL : "https://api.weixin.qq.com/cgi-bin/media/upload"
+  MEDIA_GET_BY_ID_URL: "https://api.weixin.qq.com/cgi-bin/media/get"
 
   # 生成带参数的二维码
   QRCODE_CREATE_URL : "https://api.weixin.qq.com/cgi-bin/qrcode/create"
