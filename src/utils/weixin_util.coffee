@@ -1,4 +1,5 @@
 ###
+# TODO 废弃！已经被拆分到各个models 中去了。
 # 微信的工具类
 # author: YuanXiangDong
 # date: 2015-03-03
